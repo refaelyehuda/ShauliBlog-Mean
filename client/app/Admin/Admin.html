@@ -1,0 +1,61 @@
+<div>
+    <h2>Admin Control</h2>
+
+    <p>
+
+        <b data-tooltip="Manage all the comments of funClubs">
+           <a class="Button" href="#">Manage Comments</a>
+        </b>
+        <b data-tooltip="Group the fans per year of Birhday">
+            <a class="Button" href="#">GroupUser ByYear</a>
+        </b>
+        <b data-tooltip="Group the fans per gender">
+            <a class="Button" href="#">GroupUser ByGender</a>
+        </b>
+        <b data-tooltip="Create rules in the system and associate to a user">
+            <a class="Button" href="#">Create Rule</a>
+        </b>
+
+        <section id="search">
+            <form action="#" method="search">
+                <label for="from-date"><h4>Filter post by author</h4></label>
+                <input name="name" type="name" placeholder="Enter name of a author here" />
+                <b data-tooltip="Filter posts by an author"><input type="submit" value="Search" class="search" /></b>
+            </form>
+        </section>
+
+
+    <p></p>
+    <!--<table class="table">-->
+        <!--<tr>-->
+            <!--<th>-->
+                <!--@Html.DisplayNameFor(model => model.Title)-->
+            <!--</th>-->
+            <!--<th>-->
+                <!--@Html.DisplayNameFor(model => model.Author)-->
+            <!--</th>-->
+            <!--<th></th>-->
+        <!--</tr>-->
+
+        <!--@foreach (var item in Model)-->
+        <!--{-->
+        <!--<tr>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.Title)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.Author)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |-->
+                <!--@Html.ActionLink("Details", "Details", new { id = item.ID }) |-->
+                <!--@Html.ActionLink("Delete", "Delete", new { id = item.ID }) |-->
+                <!--<b data-tooltip="See the comments for this post"> @Html.ActionLink("Comments", "ManageComments", new { id = item.ID })</b>-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--}-->
+    <!--</table>-->
+    <br>
+    <p><a class="Button" href="#">Add New Post</a></p>
+
+</div>

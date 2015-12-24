@@ -1,0 +1,52 @@
+<div  ng-app="myApp" ng-controller="BlogCtrl">
+ <!--class="se-pre-con" cause to feed out when the page loding -->
+    <div class="tabs">
+        <ul class="tab-links">
+            <li class="active"><a href="#tab1">Search</a></li>
+            <li><a href="#resultTarget">Posts</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="tab1" class="tab active">
+                <!--@using (Ajax.BeginForm("Index", "Blog", null, new System.Web.Mvc.Ajax.AjaxOptions-->
+                <!--{-->
+                <!--HttpMethod = "Post",-->
+                <!--UpdateTargetId = "resultTarget",-->
+                <!--OnSuccess = "searchCallback()"-->
+                <!--}, new { id = "MyId" }))-->
+                <!--{-->
+                <section id="search">
+                    <form action="#" method="search">
+                        <h2>Search</h2>
+                        <p>
+                            <label for="from-date">From Date</label>
+                            <input id="from-date" type="date" name="fromdate" />
+                        </p>
+                        <p>
+                            <label for="to-date">To Date</label>
+                            <input id="to-date" type="date" name="todate" />
+                        </p>
+                        <p>
+                            <label id="author_name">Name of author</label>
+                            <input type="name" name="author_name" placeholder="Enter author name here" />
+                        </p>
+                        <p>
+                            <label id="email">Title</label>
+                            <input name="title" id="title" type="text" placeholder="Enter Title here" />
+                        </p>
+                        <p>
+                            <label id="Min comments per post">Minimum comments </label>
+                            <input type="range" name="MinCommentsPerPost" min="0" max="10" />
+                        </p>
+                        <p><input type="submit" value="Search" class="search" /></p>
+                    </form>
+                </section>
+
+
+            </div>
+            <div id="resultTarget" class="tab">
+
+            </div>
+        </div>
+    </div>
+ </div>

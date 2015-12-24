@@ -1,0 +1,88 @@
+<div ng-app="myApp" ng-controller="FanClubsCtrl">
+    <b data-tooltip="See how meny gender do you have and the number for each gender">
+        <a class = "Button" href="#">GroupByGender</a>
+    </b>
+
+    <b data-tooltip="See how meny Fuus exist according to the ages">
+        <a class = "Button" href="#">GroupByYear</a>
+    </b>
+
+    <b data-tooltip="See number of comments that each user inserts">
+        <a class = "Button" href="#">Count comments per user</a>
+    </b>
+
+    </p>
+
+
+    <section id="search">
+        <form action="#" method="search" class="form">
+            <h2>Search</h2>
+            <p>
+                <label id="author_name">First Name</label>
+                <input type="name" name="name" placeholder="Enter name here" />
+            </p>
+            <p>
+                <label id="email">Gender</label>
+                <input name="gender" id="title" type="text" placeholder="Enter Title here" />
+            </p>
+            <p>
+                <label for="to-date">BirthDate</label>
+                <input id="to-date" type="date" name="birthdate" />
+            </p>
+            <p><input type="submit" value="Search" class="Button"/></p>
+        </form>
+    </section>
+
+
+    <!--<table class="table">-->
+        <!--<tr>-->
+            <!--<th>-->
+                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.FirstName)&ndash;&gt;-->
+            <!--</th>-->
+            <!--<th>-->
+                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.LastName)&ndash;&gt;-->
+                <!--<input type="text">-->
+            <!--</th>-->
+            <!--<th>-->
+                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.Gender)&ndash;&gt;-->
+            <!--</th>-->
+            <!--<th>-->
+                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.BirthDate)&ndash;&gt;-->
+            <!--</th>-->
+            <!--<th>-->
+                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.Seniority)&ndash;&gt;-->
+            <!--</th>-->
+            <!--<th></th>-->
+        <!--</tr>-->
+
+        <!--@foreach (var item in Model)-->
+        <!--{-->
+        <!--<tr>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.FirstName)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.LastName)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.Gender)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.BirthDate)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.DisplayFor(modelItem => item.Seniority)-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |-->
+                <!--@Html.ActionLink("Details", "Details", new { id = item.ID }) |-->
+                <!--@Html.ActionLink("Delete", "Delete", new { id = item.ID })-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--}-->
+
+    <!--</table>-->
+    <!--<br />-->
+
+
+</div>
