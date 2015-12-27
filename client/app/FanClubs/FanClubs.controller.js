@@ -4,6 +4,16 @@
 angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$http, $route, $routeParams) {
 
     //FIXME need to fix search by birthday
+
+    var fanById = function(fanId){
+        for (var i=0;i<$scope.fansclubs.length;i++){
+            if($scope.fansclubs[i]._id == fanId ){
+                //save the data from all page that use with this controller
+                return $scope.fansclubs[i];
+            }
+        }
+        return null;
+    }
     //get the fans from the DB
     $http({
         method: 'GET',
@@ -15,14 +25,53 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
     });
 
     $scope.loadEdit = function(fanId){
-        for (var i=0;i<$scope.fansclubs.length;i++){
-            if($scope.fansclubs[i]._id == fanId ){
-                //save the data from all page that use with this controller
-                $rootScope.fanToEdit = $scope.fansclubs[i];
-            }
+        $rootScope.fanToEdit = fanById(fanId);
+        if($rootScope.fanToEdit != undefined ){
+            window.location.href = "/#/FanClubs/edit"
+        }else{
+            window.location.href = "/#/FanClubs";
         }
-        window.location.href = "/#/FanClubs/edit"
+
     }
 
+    $scope.UpdatesFans = function(fan){
+        console.log(fan);
+        $http({
+            method: 'PUT',
+            url: '/updatefan',
+            data: fan
+        }).then(function successCallback(response) {
+            console.log("OK");
+        }, function errorCallback(response) {
+            console.log("ERROR");
+        });
+    }
+
+    $scope.loadDetails = function(fanId){
+        $rootScope.fanToEdit = fanById(fanId);
+        if($rootScope.fanToEdit != undefined ){
+            window.location.href = "/#/FanClubs/details"
+        }else{
+            window.location.href = "/#/FanClubs";
+        }
+    }
+
+    $scope.deleteFan = function(fanId){
+        var fanToDelete = fanById(fanId);
+        if($rootScope.fanToDelete.Role != "admin"){
+            window.location.href="/#/FanClubs/";
+        }else{
+            $http({
+                method: 'DELETE',
+                url: '/deletefan',
+                data: fanToDelete
+            }).then(function successCallback(response) {
+                console.log("OK");
+            }, function errorCallback(response) {
+                console.log("ERROR");
+            });
+        }
+
+    }
 
 });
