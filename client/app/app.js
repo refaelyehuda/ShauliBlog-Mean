@@ -18,6 +18,12 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/FanClubs/FanClubs.html'
 
             })
+        .when('/FanClubs/edit',
+            {
+                controller: 'FanClubsCtrl',
+                templateUrl: '/app/FanClubs/editFans.html'
+
+            })
         .when('/Admin',
             {
                 controller: 'AdminCtrl',

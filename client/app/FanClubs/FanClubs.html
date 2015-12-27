@@ -19,70 +19,68 @@
             <h2>Search</h2>
             <p>
                 <label id="author_name">First Name</label>
-                <input type="name" name="name" placeholder="Enter name here" />
+                <input ng-model="searchFirstName"  type="name" name="name" placeholder="Enter name here" />
             </p>
             <p>
                 <label id="email">Gender</label>
-                <input name="gender" id="title" type="text" placeholder="Enter Title here" />
+                <input ng-model="searchGender" name="gender" id="title" type="text" placeholder="Enter Title here" />
             </p>
             <p>
                 <label for="to-date">BirthDate</label>
-                <input id="to-date" type="date" name="birthdate" />
+                <input ng-model="BirthDate" id="to-date" type="date" name="birthdate" />
             </p>
-            <p><input type="submit" value="Search" class="Button"/></p>
         </form>
     </section>
 
+    <table class="table">
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
 
-    <!--<table class="table">-->
-        <!--<tr>-->
-            <!--<th>-->
-                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.FirstName)&ndash;&gt;-->
-            <!--</th>-->
-            <!--<th>-->
-                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.LastName)&ndash;&gt;-->
-                <!--<input type="text">-->
-            <!--</th>-->
-            <!--<th>-->
-                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.Gender)&ndash;&gt;-->
-            <!--</th>-->
-            <!--<th>-->
-                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.BirthDate)&ndash;&gt;-->
-            <!--</th>-->
-            <!--<th>-->
-                <!--&lt;!&ndash;@Html.DisplayNameFor(model => model.Seniority)&ndash;&gt;-->
-            <!--</th>-->
-            <!--<th></th>-->
-        <!--</tr>-->
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                BirthDate
+            </th>
+            <th>
+                Seniority
+            </th>
+            <th></th>
+        </tr>
 
-        <!--@foreach (var item in Model)-->
-        <!--{-->
-        <!--<tr>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.FirstName)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.LastName)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.Gender)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.BirthDate)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.Seniority)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |-->
-                <!--@Html.ActionLink("Details", "Details", new { id = item.ID }) |-->
-                <!--@Html.ActionLink("Delete", "Delete", new { id = item.ID })-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--}-->
 
-    <!--</table>-->
-    <!--<br />-->
+        <tr ng-repeat ="fan in fansclubs | filter:searchFirstName |filter:searchGender | filter:BirthDate ">
+            <td>
+                {{fan.Firstname}}
+            </td>
+            <td>
+                {{fan.Lastname}}
+            </td>
+            <td>
+                {{fan.Gender}}
+            </td>
+            <td>
+                {{fan.Birthdate}}
+            </td>
+            <td>
+                {{fan.Seniority}}
+            </td>
+            <td>
+
+                <button class="Button" ng-click="loadEdit(fan._id)">Edit</button>
+                <a class="Button" href="#">Details</a>
+                <a class="Button" href="#">Delete</a>
+            </td>
+        </tr>
+
+
+    </table>
+    <br />
 
 
 </div>
