@@ -21,19 +21,31 @@ app.config(['$routeProvider',function($routeProvider){
         .when('/FanClubs/edit',
             {
                 controller: 'FanClubsCtrl',
-                templateUrl: '/app/FanClubs/editFans.html'
+                templateUrl: '/app/FanClubs/EditFans.html'
 
             })
         .when('/FanClubs/details',
             {
                 controller: 'FanClubsCtrl',
-                templateUrl: '/app/FanClubs/detailsFans.html'
+                templateUrl: '/app/FanClubs/DetailsFans.html'
 
             })
         .when('/Admin',
             {
                 controller: 'AdminCtrl',
                 templateUrl: '/app/Admin/Admin.html'
+
+            })
+        .when('/Admin/CreatePost',
+            {
+                controller: 'AdminCtrl',
+                templateUrl: '/app/Admin/CreatePost.html'
+
+            })
+        .when('/Admin/Details',
+            {
+                controller: 'AdminCtrl',
+                templateUrl: '/app/Admin/DetailsPost.html'
 
             })
         .when('/Branches',

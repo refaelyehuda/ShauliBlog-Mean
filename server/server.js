@@ -19,23 +19,12 @@ router.use(logger());
 app.use(bodyParser.json());
 router.use(express.static(__dirname + '/../client'));
 
-/*
-var templates = require('./routes/templates.js');
-var screens = require('./routes/screens.js');
-
-app.use('/templates', templates);
-app.use('/screens', screens);
-*/
 app.use('/', router);
 app.get("/", function(request, response){
     response.sendFile(__dirname + "/index.html");
 });
 
 //FIXME need to fix delete fan
-app.delete("/deletefan" , function(request, response){
-    console.log(request.body);
-});
-
 
 //get the location of the branches
 app.get("/locations", function(request, response){
@@ -56,7 +45,7 @@ app.get("/locations", function(request, response){
 
 });
 //get the fans that contains in the DB
-app.get("/fansclub", function(request, response){
+app.get("/fans", function(request, response){
     console.log("fansclub connection establish");
     // Connect to the db
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -74,8 +63,7 @@ app.get("/fansclub", function(request, response){
     });
 });
 
-app.put("/updatefan", function(request, response){
-    console.log(request.body);
+app.put("/fans", function(request, response){
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
             console.log("Connection to MongoDb established");
@@ -86,7 +74,7 @@ app.put("/updatefan", function(request, response){
                 { "_id" : new ObjectId(request.body._id) },
                 {
                     $set: {"Username":request.body.Username, "Firstname":request.body.Firstname ,"Lastname":request.body.Lastname,
-                    "Gender":request.body.Gender,"Birthdate":request.body.Birthdate,"Seniority":request.body.Seniority},
+                        "Gender":request.body.Gender,"Birthdate":request.body.Birthdate,"Seniority":request.body.Seniority},
                     $currentDate: { "lastModified": true }
                 }, function(err, results) {
                     if(!err){
@@ -104,6 +92,63 @@ app.put("/updatefan", function(request, response){
     });
 
     response.send("The fan is updated");
+});
+
+//get the screenId that entered to delete
+app.param('fanId', function(req, res, next, fanId) {
+    // print  screenId to console
+    console.log('fanId : ' + fanId);
+    req.fanId = fanId;
+    //check if we have more routes to do
+    next();
+});
+
+app.delete("/fans=:fanId" , function(request, response){
+    console.log(request.fanId);
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Users');
+            //find the fan that need to update according the id and update the data
+            collection.deleteOne(
+                {"_id": new ObjectId(request.fanId)},
+                function(err, results) {
+                    if(!err){
+                        console.log("remove fan success");
+                        db.close();
+                    }else{
+                        db.close();
+                        console.log("error with remove fan");
+                    }
+                }
+            );
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+app.get("/posts", function(request, response){
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+            collection.find().toArray(function (err, data) {
+                response.send({JSON : data});
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+//FIXME need to insert the post to the collection
+app.post("/posts", function(request, response){
+    console.log(request.body);
 });
 
 var server = app.listen(8080 , function(){

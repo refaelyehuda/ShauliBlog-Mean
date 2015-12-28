@@ -17,45 +17,39 @@
         </b>
 
         <section id="search">
-            <form action="#" method="search">
-                <label for="from-date"><h4>Filter post by author</h4></label>
-                <input name="name" type="name" placeholder="Enter name of a author here" />
-                <b data-tooltip="Filter posts by an author"><input type="submit" value="Search" class="search" /></b>
-            </form>
+                <label ><h4>Filter post by author</h4></label>
+                <input ng-model="searchAuthor" name="name" type="name" placeholder="Enter name of a author here" />
         </section>
 
 
     <p></p>
-    <!--<table class="table">-->
-        <!--<tr>-->
-            <!--<th>-->
-                <!--@Html.DisplayNameFor(model => model.Title)-->
-            <!--</th>-->
-            <!--<th>-->
-                <!--@Html.DisplayNameFor(model => model.Author)-->
-            <!--</th>-->
-            <!--<th></th>-->
-        <!--</tr>-->
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Author
+            </th>
+            <th></th>
+        </tr>
 
-        <!--@foreach (var item in Model)-->
-        <!--{-->
-        <!--<tr>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.Title)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.DisplayFor(modelItem => item.Author)-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |-->
-                <!--@Html.ActionLink("Details", "Details", new { id = item.ID }) |-->
-                <!--@Html.ActionLink("Delete", "Delete", new { id = item.ID }) |-->
-                <!--<b data-tooltip="See the comments for this post"> @Html.ActionLink("Comments", "ManageComments", new { id = item.ID })</b>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--}-->
-    <!--</table>-->
+        <tr ng-repeat ="post in posts | filter:searchAuthor">
+            <td>
+                {{post.Title}}
+            </td>
+            <td>
+                {{post.Author}}
+            </td>
+            <td>
+                <button class="Button" ng-click="loadEdit(post._id)">Edit</button>
+                <button class="Button"  ng-click="loadDetails(post._id)">Details</button>
+                <button class="Button" ng-click="deleteFan(post._id)">Delete</button>
+                <b data-tooltip="See the comments for this post"> <button class="Button" ng-click="deleteFan(post._id)">Comments</button></b>
+            </td>
+        </tr>
+    </table>
     <br>
-    <p><a class="Button" href="#">Add New Post</a></p>
+    <p><a class="Button" href="/#/Admin/CreatePost">Add New Post</a></p>
 
 </div>

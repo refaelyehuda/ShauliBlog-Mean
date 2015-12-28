@@ -17,7 +17,7 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
     //get the fans from the DB
     $http({
         method: 'GET',
-        url: '/fansclub'
+        url: '/fans'
     }).then(function successCallback(response) {
         $scope.fansclubs = response.data.JSON;
     }, function errorCallback(response) {
@@ -38,7 +38,7 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
         console.log(fan);
         $http({
             method: 'PUT',
-            url: '/updatefan',
+            url: '/fans',
             data: fan
         }).then(function successCallback(response) {
             console.log("OK");
@@ -56,19 +56,20 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
         }
     }
 
+    //FIXME need to refresh the table after delete row
     $scope.deleteFan = function(fanId){
         var fanToDelete = fanById(fanId);
-        if($rootScope.fanToDelete.Role != "admin"){
+        if(fanToDelete.Role != "admin"){
             window.location.href="/#/FanClubs/";
         }else{
             $http({
                 method: 'DELETE',
-                url: '/deletefan',
-                data: fanToDelete
+                url: '/fans' +"=" + fanId
             }).then(function successCallback(response) {
-                console.log("OK");
+                $scope.apply();
+                console.log("fan deleted successfully");
             }, function errorCallback(response) {
-                console.log("ERROR");
+                console.log("ERROR with deleted fan");
             });
         }
 

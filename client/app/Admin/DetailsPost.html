@@ -1,0 +1,86 @@
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <p></p>
+    <dl class="dl-horizontal">
+        <dt>
+            Title
+        </dt>
+
+        <dd class="display">
+            {{postToEdit.Title}}
+        </dd>
+
+        <dt>
+            Author
+        </dt>
+
+        <dd class="display">
+            {{postToEdit.Author}}
+        </dd>
+
+        <dt>
+            WebSite
+        </dt>
+
+        <dd class="display">
+            {{postToEdit.WebSite}}
+        </dd>
+
+        <dt>
+            Release
+        </dt>
+
+        <dd class="display">
+            {{postToEdit.Release}}
+        </dd>
+
+        <dt>
+            Category
+        </dt>
+
+        <dd class="display">
+            {{postToEdit.Category}}
+        </dd>
+
+        <dt>
+            Text
+        </dt>
+
+        <dd class="display">
+            {{postToEdit.Text}}
+        </dd>
+
+        <dt>
+            <!--@* this is a optional field  *@-->
+             Image
+        </dt>
+
+        <dd>
+            <!--@* this is an optional field therefore we check if it's empty  *@-->
+            <!--@*dispaly the photo in details page *@-->
+            <img src="{{postToEdit.Image}}" width="650" height="388" />
+        </dd>
+
+        <dt>
+            Video
+        </dt>
+
+        <dd>
+
+            <br />
+            <!--@*dispaly the video in details page *@-->
+            <video controls="controls">
+                <source src="{{postToEdit.Video}}" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button class="Button" ng-click="loadEdit(postToEdit._id)">Edit</button>
+</p>
+<a class="Button" href="/#/Admin/">Back to List</a>

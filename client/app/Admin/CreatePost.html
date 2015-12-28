@@ -1,0 +1,70 @@
+<h1>Create a post</h1>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2" for="FirstName">FirstName</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="FirstName" name="FirstName"  ng-model="fanToCreate.Firstname" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Author">Author</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="Author" name="Author"  ng-model="fanToCreate.Author" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="WebSite">WebSite</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="WebSite" name="WebSite"  ng-model="fanToCreate.WebSite" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Category">Category</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="Category" name="Category"  ng-model="fanToCreate.Category" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Text">Text</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="Text" name="Text"  ng-model="fanToCreate.Text" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <!--@*The for option enables us to click on the Image word and check the checkbox*@-->
+        <label class="control-label col-md-2" for="ShowImage">Image</label>
+        <input type="checkbox" id="ShowImage" class="OpenClose">
+        <div class="col-md-10">
+            <!--@*The input type = "file" gaves us the option to browse data from our own computer and load it to the server*@-->
+            <input type="file" name="image"  id="image" ng-model="fanToCreate.Image"/>
+            <!--<input type="file" name="image"  id="image" ng-model="fanToCreate.Image" accept="image/*" app-filereader />-->
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <!--The for option enables us to click on the video word and check the checkbox-->
+        <label class="control-label col-md-2" for="ShowVideo">Video</label>
+        <input type="checkbox" id="ShowVideo" class="OpenClose">
+        <div class="col-md-10">
+            <!--The input type = "file" gaves us the option to browse data from our own computer and load it to the server-->
+            <input type="file" name="video" id="video" ng-model="fanToCreate.Video" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input ng-click="createPost(fanToCreate)" value="Create" class="Button" />
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a class="Button" href="/#/Admin/">Back to List</a>
+</div>

@@ -3,4 +3,5 @@
  */
 angular.module('myApp').controller('BlogCtrl',['$rootScope','$scope','$route', '$routeParams', function($rootScope,$scope, $route, $routeParams) {
 
+    
 }]);
