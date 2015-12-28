@@ -20,10 +20,11 @@ angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http
     }).then(function successCallback(response) {
         $scope.posts = response.data.JSON;
     }, function errorCallback(response) {
-        console.log("error with  get fans");
+        console.log("error with  get posts");
     });
 
     $scope.createPost = function(post){
+        post.Release = new Date();
         $http({
             method: 'POST',
             url: '/posts',

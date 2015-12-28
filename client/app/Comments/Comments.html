@@ -1,0 +1,50 @@
+ <h2>Index</h2>
+
+    <p>
+        <a class="Button" href="/#/Comments/create">Create New Comment</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                UserName
+            </th>
+            <th>
+                WebSiteCritic
+            </th>
+            <th>
+                Text
+            </th>
+            <th>
+                Release
+            </th>
+            <th></th>
+        </tr>
+
+        <tr ng-repeat ="comment in comments" >
+            <td>
+                {{comment.Title}}
+            </td>
+            <td>
+                {{comment.UserName}}
+            </td>
+            <td>
+                {{comment.WebSiteCritic}}
+            </td>
+            <td>
+                {{comment.Text}}
+            </td>
+            <td>
+                {{comment.Release}}
+            </td>
+            <td>
+                <button class="Button" ng-click="loadEdit(comment._id)">Edit</button>
+                <button class="Button"  ng-click="loadDetails(comment._id)">Details</button>
+                <button class="Button" ng-click="deleteComment(comment._id)">Delete</button>
+            </td>
+        </tr>
+
+
+    </table>

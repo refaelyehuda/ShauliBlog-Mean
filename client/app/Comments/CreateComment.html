@@ -1,0 +1,50 @@
+<h1>Create a post</h1>
+<div class="form-horizontal">
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="FirstName">Post Id</label>
+        <!--TODO need to implement select list -->
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="PostId" name="PostId"  ng-model="commentToCreate.PostId" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="FirstName">Title</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="FirstName" name="FirstName"  ng-model="commentToCreate.Title" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="WebSiteCritic">WebSiteCritic</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="WebSiteCritic" name="WebSiteCritic"  ng-model="commentToCreate.WebSiteCritic" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Text">Text</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="Text" name="Text"  ng-model="commentToCreate.Text" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="UserName">UserName</label>
+        <div class="col-md-10">
+            <input class="text-box single-line valid" id="UserName" name="UserName"  ng-model="commentToCreate.UserName" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input ng-click="createComment(commentToCreate)" value="Create" class="Button" />
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a class="Button" href="/#/Comments/">Back to List</a>
+</div>

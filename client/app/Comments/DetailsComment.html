@@ -1,0 +1,51 @@
+<h2>Details</h2>
+
+<div>
+    <h4>FunClub</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Title
+        </dt>
+
+        <dd class="display">
+            {{commentToEdit.Title}}
+        </dd>
+
+        <dt>
+            WebSiteCritic
+        </dt>
+
+        <dd class="display">
+            {{commentToEdit.WebSiteCritic}}
+        </dd>
+
+        <dt>
+            Release
+        </dt>
+
+        <dd class="display">
+            {{commentToEdit.Release}}
+        </dd>
+
+        <dt>
+            Text
+        </dt>
+
+        <dd class="display">
+            {{commentToEdit.Text}}
+        </dd>
+
+        <dt>
+            UserName
+        </dt>
+
+        <dd class="display">
+            {{commentToEdit.UserName}}
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button class="Button" ng-click="loadEdit(commentToEdit._id)">Edit</button>
+</p>
+<a class="Button" href="/#/Comments/">Back to List</a>

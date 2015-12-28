@@ -116,7 +116,16 @@ app.delete("/fans=:fanId" , function(request, response){
                 function(err, results) {
                     if(!err){
                         console.log("remove fan success");
-                        db.close();
+                        //find all ads in collection that have the screen id
+                        collection.find().toArray(function (err, data) {
+                            if(!err){
+                                response.send({JSON : data});
+                                db.close();
+                            }else{
+                                db.close();
+                                console.log(err);
+                            }
+                        });
                     }else{
                         db.close();
                         console.log("error with remove fan");
@@ -146,9 +155,101 @@ app.get("/posts", function(request, response){
     });
 });
 
+app.get("/postswithcomments", function(request, response){
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            var data_to_sent = [];
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+            collection.find().toArray(function (err, data) {
+                var length = data.length;
+//FIXME need to fix the logic of send post with comments
+                for(var i = 0 ;i<length;i++){
+                    var post_data = data[i];
+                    var collection_comments = db.collection('Comments');
+                    collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,data){
+                        post_data.Comments = data;
+                        data_to_sent[i] = post_data;
+                    })
+                }
+                response.send({JSON : data_to_sent});
+
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+
 //FIXME need to insert the post to the collection
 app.post("/posts", function(request, response){
     console.log(request.body);
+});
+
+app.post("/comment", function(request, response){
+    console.log(request.body);
+});
+app.get("/comments", function(request, response){
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Comments');
+            //find all ads in collection that have the screen id
+            collection.find().toArray(function (err, data) {
+                response.send({JSON : data});
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+app.param('commentId', function(req, res, next, commentId) {
+    // print  screenId to console
+    console.log('commentId : ' + commentId);
+    req.commentId = commentId;
+    //check if we have more routes to do
+    next();
+});
+
+app.delete("/comments=:commentId" , function(request, response){
+    console.log(request.commentId);
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Users');
+            //find the fan that need to update according the id and update the data
+            collection.deleteOne(
+                {"_id": new ObjectId(request.commentId)},
+                function(err, results) {
+                    if(!err){
+                        console.log("remove fan success");
+                        //find all ads in collection that have the screen id
+                        collection.find().toArray(function (err, data) {
+                            if(!err){
+                                response.send({JSON : data});
+                                db.close();
+                            }else{
+                                db.close();
+                                console.log(err);
+                            }
+                        });
+                    }else{
+                        db.close();
+                        console.log("error with remove fan");
+                    }
+                }
+            );
+        }else{
+            console.log(err);
+        }
+    });
 });
 
 var server = app.listen(8080 , function(){

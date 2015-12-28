@@ -46,7 +46,6 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
             console.log("ERROR");
         });
     }
-
     $scope.loadDetails = function(fanId){
         $rootScope.fanToEdit = fanById(fanId);
         if($rootScope.fanToEdit != undefined ){
@@ -56,7 +55,6 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
         }
     }
 
-    //FIXME need to refresh the table after delete row
     $scope.deleteFan = function(fanId){
         var fanToDelete = fanById(fanId);
         if(fanToDelete.Role != "admin"){
@@ -66,7 +64,7 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
                 method: 'DELETE',
                 url: '/fans' +"=" + fanId
             }).then(function successCallback(response) {
-                $scope.apply();
+                $scope.fansclubs = response.data.JSON;
                 console.log("fan deleted successfully");
             }, function errorCallback(response) {
                 console.log("ERROR with deleted fan");

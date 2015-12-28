@@ -54,5 +54,28 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/Branches/Branches.html'
 
             })
+        .when('/Comments',
+            {
+                controller: 'CommentsCtrl',
+                templateUrl: '/app/Comments/Comments.html'
+            })
+        .when('/Comments/create',
+            {
+                controller: 'CommentsCtrl',
+                templateUrl: '/app/Comments/CreateComment.html'
+
+            })
+        .when('/Comments/edit',
+            {
+                controller: 'CommentsCtrl',
+                templateUrl: '/app/Comments/EditComment.html'
+
+            })
+        .when('/Comments/details',
+            {
+                controller: 'CommentsCtrl',
+                templateUrl: '/app/Comments/DetailsComment.html'
+
+            })
         .otherwise({redirectTo:'/'});
 }]);
