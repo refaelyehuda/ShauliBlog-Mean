@@ -42,8 +42,9 @@
         <div class="col-md-10">
             <!--@*The input type = "file" gaves us the option to browse data from our own computer and load it to the server*@-->
             <!--FIXME The input of file should be fixed-->
-            <input type="file" name="image"  id="image" ng-model="postToCreate.Image"/>
+            <input type="file" ng-file-select="onFileSelect($files)" multiple>
             <!--<input type="file" name="image"  id="image" ng-model="fanToCreate.Image" accept="image/*" app-filereader />-->
+            <input type="button" ng-click="uploadFile()" value="Upload" />
         </div>
 
         <h1>{{fanToCreate.Image}}</h1>

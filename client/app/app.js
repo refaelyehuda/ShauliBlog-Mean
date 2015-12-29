@@ -30,6 +30,18 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/FanClubs/DetailsFans.html'
 
             })
+        .when('/FanClubs/GroupFansByBirthdate',
+            {
+                controller: 'FanClubsCtrl',
+                templateUrl: '/app/FanClubs/GroupFansByBirthdate.html'
+
+            })
+        .when('/FanClubs/GroupFansByGender',
+            {
+                controller: 'FanClubsCtrl',
+                templateUrl: '/app/FanClubs/GroupFansByGender.html'
+
+            })
         .when('/Admin',
             {
                 controller: 'AdminCtrl',

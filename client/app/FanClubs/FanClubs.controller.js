@@ -4,7 +4,6 @@
 angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$http, $route, $routeParams) {
 
     //FIXME need to fix search by birthday
-
     var fanById = function(fanId){
         for (var i=0;i<$scope.fansclubs.length;i++){
             if($scope.fansclubs[i]._id == fanId ){
@@ -23,7 +22,6 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
     }, function errorCallback(response) {
         console.log("error with  get fans");
     });
-
     $scope.loadEdit = function(fanId){
         $rootScope.fanToEdit = fanById(fanId);
         if($rootScope.fanToEdit != undefined ){
@@ -33,7 +31,6 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
         }
 
     }
-
     $scope.UpdatesFans = function(fan){
         console.log(fan);
         $http({
@@ -54,7 +51,6 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
             window.location.href = "/#/FanClubs";
         }
     }
-
     $scope.deleteFan = function(fanId){
         var fanToDelete = fanById(fanId);
         if(fanToDelete.Role != "admin"){
@@ -71,6 +67,42 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
             });
         }
 
+    }
+//FIXME need to fix display data that get from the server ng-repeat doesn't work
+    $scope.groupByYear = function(){
+
+        $http({
+            method: 'GET',
+            url: '/groupFansByYear'
+        }).then(function successCallback(response) {
+            $rootScope.groupFans = response.data;
+            $rootScope.groupFans.forEach(function (year) {
+                console.log(year.count);
+                console.log(year._id.Birthdate);
+            })
+            window.location.href = "/#/FanClubs/GroupFansByBirthdate"
+        }, function errorCallback(response) {
+            console.log("error with  get fans");
+            window.location.href = "/#/FanClubs";
+        });
+    }
+
+    $scope.groupByGender = function(){
+
+        $http({
+            method: 'GET',
+            url: '/groupFansByGender'
+        }).then(function successCallback(response) {
+            $rootScope.groupFans = response.data;
+            $rootScope.groupFans.forEach(function (year) {
+                console.log(year.count);
+                console.log(year._id.Birthdate);
+            })
+            window.location.href = "/#/FanClubs/GroupFansByGender"
+        }, function errorCallback(response) {
+            console.log("error with  get fans");
+            window.location.href = "/#/FanClubs";
+        });
     }
 
 });

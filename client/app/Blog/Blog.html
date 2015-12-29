@@ -1,4 +1,4 @@
-<div  ng-app="myApp" ng-controller="BlogCtrl">
+<div>
  <!--class="se-pre-con" cause to feed out when the page loding -->
     <!--<div class="tabs">-->
         <!--<ul class="tab-links">-->
@@ -56,7 +56,7 @@
                     </div>
                 </article>
                 <section id="comments">
-                    <article ng-repeat="comment in post.comments" >
+                    <article ng-repeat="comment in post.Comments" >
                         <h3 class="title">{{comment.Title}}</h3>
                         <header>
                             <a ng-href="{{comment.WebSiteCritic}}">{{comment.username}}</a> on <time>{{comment.Release}}</time>

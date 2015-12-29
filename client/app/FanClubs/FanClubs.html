@@ -1,12 +1,12 @@
-<div ng-app="myApp" ng-controller="FanClubsCtrl">
+<div>
     <b data-tooltip="See how meny gender do you have and the number for each gender">
-        <a class = "Button" href="#">GroupByGender</a>
+        <button class="Button" ng-click="groupByGender()">GroupByGender</button>
     </b>
 
     <b data-tooltip="See how meny Fuus exist according to the ages">
-        <a class = "Button" href="#">GroupByYear</a>
+        <button class="Button" ng-click="groupByYear()">GroupByYear</button>
     </b>
-
+<!--TODO If we don't implement this feature we need to remove it -->
     <b data-tooltip="See number of comments that each user inserts">
         <a class = "Button" href="#">Count comments per user</a>
     </b>

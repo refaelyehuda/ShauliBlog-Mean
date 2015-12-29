@@ -7,9 +7,9 @@ angular.module('myApp').controller('BlogCtrl',function($rootScope,$scope,$http, 
 
     $http({
         method: 'GET',
-        url: '/postswithcomments'
+        url: '/postsWithComments'
     }).then(function successCallback(response) {
-        $scope.posts = response.data.JSON;
+        $scope.posts = response.data;
     }, function errorCallback(response) {
         console.log("error with  get posts");
     });

@@ -11,9 +11,11 @@ var logger = require('morgan');
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
+var FB = require('fb');
 
 var app = express();
 var router = express.Router();
+
 
 router.use(logger());
 app.use(bodyParser.json());
@@ -61,6 +63,50 @@ app.get("/fans", function(request, response){
             console.log(err);
         }
     });
+});
+
+app.get("/groupFansByYear",function(request, response){
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Users');
+            //group by Birthdate og the fans
+            //aggregate(   [ { $group : { _id : { Birthdate: "$Birthdate" },count: { $sum: 1 }}}
+            collection.aggregate(   [ { $group : { _id : { Birthdate: "$Birthdate" },count: { $sum: 1
+            }}}]).toArray(function(err, result) {
+                response.send(result);
+            });
+
+        }else{
+            console.log(err);
+        }
+    });
+
+
+});
+
+app.get("/groupFansByGender",function(request, response){
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Users');
+            //group by Birthdate og the fans
+            //aggregate(   [ { $group : { _id : { Birthdate: "$Birthdate" },count: { $sum: 1 }}}
+            collection.aggregate(   [ { $group : { _id : { Gender: "$Gender" },count: { $sum: 1
+            }}}]).toArray(function(err, result) {
+                response.send(result);
+            });
+
+        }else{
+            console.log(err);
+        }
+    });
+
+
 });
 
 app.put("/fans", function(request, response){
@@ -138,6 +184,7 @@ app.delete("/fans=:fanId" , function(request, response){
     });
 });
 
+
 app.get("/posts", function(request, response){
     // Connect to the db
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -155,8 +202,14 @@ app.get("/posts", function(request, response){
     });
 });
 
-app.get("/postswithcomments", function(request, response){
+app.get("/postsWithComments", function(request, response){
     // Connect to the db
+
+    var callback = function(data){
+        response.send({JSON : data});
+    }
+
+    var lengthObject = { length: 0 };
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
             var data_to_sent = [];
@@ -165,23 +218,37 @@ app.get("/postswithcomments", function(request, response){
             var collection = db.collection('Posts');
             //find all ads in collection that have the screen id
             collection.find().toArray(function (err, data) {
-                var length = data.length;
+                lengthObject.length = data.length;
 //FIXME need to fix the logic of send post with comments
-                for(var i = 0 ;i<length;i++){
-                    var post_data = data[i];
+                data.forEach(function(post_data){
                     var collection_comments = db.collection('Comments');
-                    collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,data){
-                        post_data.Comments = data;
-                        data_to_sent[i] = post_data;
-                    })
-                }
-                response.send({JSON : data_to_sent});
+                        collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,comments){
+                            post_data.Comments = comments;
+                            lengthObject.length --;
+                            if(lengthObject.length == 0){
+                                response.send(data);
+                            }
+                        })
+                })
+                //for(var i = 0 ;i<length;i++){
+                //    var post_data = data[i];
+                //    var collection_comments = db.collection('Comments');
+                //    collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,data){
+                //        post_data.Comments = data;
+                //        data_to_sent[i] = post_data;
+                //    })
+                //}
+                //response.send({JSON : data_to_sent});
 
             });
         }else{
             console.log(err);
         }
     });
+});
+
+app.post("/fileupload", function(request, response){
+    console.log(request.body);
 });
 
 
