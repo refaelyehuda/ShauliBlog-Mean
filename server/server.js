@@ -246,15 +246,38 @@ app.get("/postsWithComments", function(request, response){
         }
     });
 });
-
-app.post("/fileupload", function(request, response){
-    console.log(request.body);
-});
-
-
 //FIXME need to insert the post to the collection
 app.post("/posts", function(request, response){
     console.log(request.body);
+    var post =request.body;
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+            collection.insertOne({
+                "Title":post.Title,
+                "Author":post.Author,
+                "WebSite":post.WebSite,
+                "Category":post.Category,
+                "Image":post.Image,
+                "Text":post.Text,
+                "Release":post.Release,
+            },function(err, records){
+                if(!err){
+                  console.log("Record added successfully");
+                  response.send("OK");
+                }else{
+                    console.log(err)
+                }
+
+            });
+        }else{
+            console.log(err);
+        }
+    });
 });
 
 app.post("/comment", function(request, response){

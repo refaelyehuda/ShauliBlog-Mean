@@ -2,9 +2,9 @@
 
 <div class="form-horizontal">
     <div class="form-group">
-        <label class="control-label col-md-2" for="FirstName">FirstName</label>
+        <label class="control-label col-md-2" for="Title">Title</label>
         <div class="col-md-10">
-            <input class="text-box single-line valid" id="FirstName" name="FirstName"  ng-model="postToCreate.Firstname" type="text">
+            <input class="text-box single-line valid" id="Title" name="Title"  ng-model="postToCreate.Title" type="text">
         </div>
     </div>
 
@@ -42,12 +42,9 @@
         <div class="col-md-10">
             <!--@*The input type = "file" gaves us the option to browse data from our own computer and load it to the server*@-->
             <!--FIXME The input of file should be fixed-->
-            <input type="file" ng-file-select="onFileSelect($files)" multiple>
+            <input type="text" name="image"  id="image" ng-model="postToCreate.Image" />
             <!--<input type="file" name="image"  id="image" ng-model="fanToCreate.Image" accept="image/*" app-filereader />-->
-            <input type="button" ng-click="uploadFile()" value="Upload" />
         </div>
-
-        <h1>{{fanToCreate.Image}}</h1>
     </div>
 
     <div class="form-group">
@@ -56,7 +53,7 @@
         <input type="checkbox" id="ShowVideo" class="OpenClose">
         <div class="col-md-10">
             <!--The input type = "file" gaves us the option to browse data from our own computer and load it to the server-->
-            <input type="file" name="video" id="video" ng-model="postToCreate.Video" />
+            <input type="text" name="video" id="video" ng-model="postToCreate.Video" />
         </div>
     </div>
 
