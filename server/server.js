@@ -11,6 +11,7 @@ var logger = require('morgan');
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
+var mongoQuery = require('./mongoController/mongoQueries');
 var FB = require('fb');
 
 var app = express();
@@ -110,6 +111,8 @@ app.get("/groupFansByGender",function(request, response){
 });
 
 app.put("/fans", function(request, response){
+
+    var fanToUpdates = request.body;
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
             console.log("Connection to MongoDb established");
@@ -119,16 +122,17 @@ app.put("/fans", function(request, response){
             collection.updateOne(
                 { "_id" : new ObjectId(request.body._id) },
                 {
-                    $set: {"Username":request.body.Username, "Firstname":request.body.Firstname ,"Lastname":request.body.Lastname,
-                        "Gender":request.body.Gender,"Birthdate":request.body.Birthdate,"Seniority":request.body.Seniority},
+                    $set: fanToUpdates,
                     $currentDate: { "lastModified": true }
                 }, function(err, results) {
                     if(!err){
                         console.log("update fan success");
                         db.close();
+                        response.send("The fan is updated");
                     }else{
                         db.close();
                         console.log("error with update fan");
+                        response.send("Error with update fan ");
                     }
 
                 });
@@ -136,8 +140,6 @@ app.put("/fans", function(request, response){
             console.log(err);
         }
     });
-
-    response.send("The fan is updated");
 });
 
 //get the screenId that entered to delete
@@ -165,8 +167,8 @@ app.delete("/fans=:fanId" , function(request, response){
                         //find all ads in collection that have the screen id
                         collection.find().toArray(function (err, data) {
                             if(!err){
-                                response.send({JSON : data});
                                 db.close();
+                                response.send({JSON : data});
                             }else{
                                 db.close();
                                 console.log(err);
@@ -183,7 +185,6 @@ app.delete("/fans=:fanId" , function(request, response){
         }
     });
 });
-
 
 app.get("/posts", function(request, response){
     // Connect to the db
@@ -204,11 +205,6 @@ app.get("/posts", function(request, response){
 
 app.get("/postsWithComments", function(request, response){
     // Connect to the db
-
-    var callback = function(data){
-        response.send({JSON : data});
-    }
-
     var lengthObject = { length: 0 };
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
@@ -230,25 +226,57 @@ app.get("/postsWithComments", function(request, response){
                             }
                         })
                 })
-                //for(var i = 0 ;i<length;i++){
-                //    var post_data = data[i];
-                //    var collection_comments = db.collection('Comments');
-                //    collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,data){
-                //        post_data.Comments = data;
-                //        data_to_sent[i] = post_data;
-                //    })
-                //}
-                //response.send({JSON : data_to_sent});
-
             });
         }else{
             console.log(err);
         }
     });
 });
-//FIXME need to insert the post to the collection
+
+//app.param('postId', function(req, res, next, postId) {
+//    // print  screenId to console
+//    console.log('postId : ' + postId);
+//    req.postId = postId;
+//    //check if we have more routes to do
+//    next();
+//});
+
+app.get("/commentPerPost=:postId", function(request, response){
+    var postId =request.postId;
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+            collection.find({ "_id" : new ObjectId(postId)}).toArray(function (err, data) {
+                if(!err){
+                    var collection_comments = db.collection('Comments');
+                    collection_comments.find({_id : {$in : data[0].Comments}}).toArray(function (err,comments){
+                        if(!err){
+                            console.log("Get the comment per post ")
+                            response.send(comments);
+                            db.close();
+                        }else{
+                            console.log("Error with  Get the comment per post ")
+                        }
+
+                    })
+                }else{
+                    console.log("Error with  Find  post ")
+                }
+
+
+            });
+        }else{
+            console.log(err);
+        }
+    });
+
+});
+
 app.post("/posts", function(request, response){
-    console.log(request.body);
+    var success = 1;
     var post =request.body;
     // Connect to the db
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -257,23 +285,91 @@ app.post("/posts", function(request, response){
             // Fetch the collection ads
             var collection = db.collection('Posts');
             //find all ads in collection that have the screen id
-            collection.insertOne({
-                "Title":post.Title,
-                "Author":post.Author,
-                "WebSite":post.WebSite,
-                "Category":post.Category,
-                "Image":post.Image,
-                "Text":post.Text,
-                "Release":post.Release,
-            },function(err, records){
-                if(!err){
-                  console.log("Record added successfully");
-                  response.send("OK");
+            mongoQuery.insertPost(collection,post,function(status){
+                if(status == success ){
+                    db.close();
+                    response.send("OK");
                 }else{
-                    console.log(err)
+                    db.close();
+                    response.send("Error");
                 }
 
             });
+
+
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+app.put("/posts", function(request, response){
+    var success = 1;
+    var post =request.body;
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+
+                mongoQuery.updatePost(collection,post,function(status){
+                    if(status == success ){
+                        db.close();
+                        response.send("OK");
+                    }else{
+                        db.close();
+                        response.send("Error");
+                    }
+
+                });
+
+        }else{
+            console.log(err);
+        }
+    });
+
+});
+
+app.param('postId', function(req, res, next, postId) {
+    // print  screenId to console
+    console.log('postId : ' + postId);
+    req.postId = postId;
+    //check if we have more routes to do
+    next();
+});
+
+app.delete("/posts=:postId" , function(request, response){
+    console.log(request.postId);
+    var success = 1;
+    var postId =request.postId;
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find the fan that need to update according the id and update the data
+            collection.deleteOne(
+                {"_id": new ObjectId(postId)},
+                function(err, results) {
+                    if(!err){
+                        console.log("remove post success");
+                        //find all ads in collection that have the screen id
+                        collection.find().toArray(function (err, data) {
+                            if(!err){
+                                db.close();
+                                response.send(data);
+                            }else{
+                                db.close();
+                                console.log(err);
+                            }
+                        });
+                    }else{
+                        db.close();
+                        console.log("error with remove post");
+                    }
+                }
+            );
         }else{
             console.log(err);
         }
@@ -281,7 +377,46 @@ app.post("/posts", function(request, response){
 });
 
 app.post("/comment", function(request, response){
-    console.log(request.body);
+    var success = 1;
+    var comment =request.body;
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Comments');
+            //find all ads in collection that have the screen id
+            mongoQuery.insertComment(collection,comment,function(status){
+                if(status == success ){
+                    //update the post with the new comment
+                    var collection_post = db.collection('Posts');
+                    collection_post.updateOne(
+                        { "_id" : new ObjectId(comment.PostId) },
+                        {
+                            $push: {"Comments":comment._id},
+                            $currentDate: { "lastModified": true }
+                        },function(err, records){
+                            if(!err){
+                                console.log("comment added successfully");
+                                response.send("OK");
+                                db.close();
+                            }else{
+                                console.log("Error with add commentId to post  ");
+                            }
+
+                        });
+                }else{
+                    response.send("Error");
+                    db.close();
+                }
+
+            });
+
+
+        }else{
+            console.log(err);
+        }
+    });
 });
 app.get("/comments", function(request, response){
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -291,7 +426,7 @@ app.get("/comments", function(request, response){
             var collection = db.collection('Comments');
             //find all ads in collection that have the screen id
             collection.find().toArray(function (err, data) {
-                response.send({JSON : data});
+                response.send(data);
             });
         }else{
             console.log(err);
@@ -313,17 +448,17 @@ app.delete("/comments=:commentId" , function(request, response){
         if (!err) {
             console.log("Connection to MongoDb established");
             // Fetch the collection ads
-            var collection = db.collection('Users');
+            var collection = db.collection('Comments');
             //find the fan that need to update according the id and update the data
             collection.deleteOne(
                 {"_id": new ObjectId(request.commentId)},
                 function(err, results) {
                     if(!err){
-                        console.log("remove fan success");
+                        console.log("remove comment success");
                         //find all ads in collection that have the screen id
                         collection.find().toArray(function (err, data) {
                             if(!err){
-                                response.send({JSON : data});
+                                response.send(data);
                                 db.close();
                             }else{
                                 db.close();

@@ -44,8 +44,8 @@
             <td>
                 <button class="Button" ng-click="loadEdit(post._id)">Edit</button>
                 <button class="Button"  ng-click="loadDetails(post._id)">Details</button>
-                <button class="Button" ng-click="deleteFan(post._id)">Delete</button>
-                <b data-tooltip="See the comments for this post"> <button class="Button" ng-click="deleteFan(post._id)">Comments</button></b>
+                <button class="Button" ng-click="deletePost(post._id)">Delete</button>
+                <b data-tooltip="See the comments for this post"> <button class="Button" ng-click="commentPerPost(post._id)">Comments</button></b>
             </td>
         </tr>
     </table>

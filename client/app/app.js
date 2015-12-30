@@ -54,10 +54,22 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/Admin/CreatePost.html'
 
             })
+        .when('/Admin/edit',
+            {
+                controller: 'AdminCtrl',
+                templateUrl: '/app/Admin/EditPost.html'
+
+            })
         .when('/Admin/Details',
             {
                 controller: 'AdminCtrl',
                 templateUrl: '/app/Admin/DetailsPost.html'
+
+            })
+        .when('/Admin/CommentsPerPost',
+            {
+                controller: 'AdminCtrl',
+                templateUrl: '/app/Admin/CommentsPerPost.html'
 
             })
         .when('/Branches',

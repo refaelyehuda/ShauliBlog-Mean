@@ -25,11 +25,13 @@ angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http
 
     $scope.createPost = function(post){
         post.Release = new Date();
+        post.Comments = [];
         $http({
             method: 'POST',
             url: '/posts',
             data: post
         }).then(function successCallback(response) {
+
             console.log("OK");
             window.location.href = "/#/Admin";
         }, function errorCallback(response) {
@@ -45,5 +47,49 @@ angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http
             window.location.href = "/#/Admin";
         }
     }
+    $scope.loadEdit = function(postId){
+        $rootScope.postToEdit = postById(postId);
+        if($rootScope.postToEdit != undefined ){
+            window.location.href = "/#/Admin/edit"
+        }else{
+            window.location.href = "/#/Admin";
+        }
 
+    }
+    $scope.updatesPost = function(post){
+        $http({
+            method: 'PUT',
+            url: '/posts',
+            data: post
+        }).then(function successCallback(response) {
+            console.log("OK");
+        }, function errorCallback(response) {
+            console.log("ERROR");
+        });
+    }
+
+    $scope.deletePost = function(postId){
+        $http({
+            method: 'DELETE',
+            url: '/posts' +"=" + postId
+        }).then(function successCallback(response) {
+            $scope.posts = response.data;
+            console.log("post deleted successfully");
+        }, function errorCallback(response) {
+            console.log("ERROR with deleted post");
+        });
+    }
+
+    $scope.commentPerPost = function(postId){
+        $http({
+            method: 'GET',
+            url: '/commentPerPost' +"=" + postId
+        }).then(function successCallback(response) {
+            $rootScope.commentPerPost = response.data;
+            console.log("get comment per post");
+            window.location.href = "/#/Admin/CommentsPerPost";
+        }, function errorCallback(response) {
+            console.log("ERROR with deleted post");
+        });
+    }
 });

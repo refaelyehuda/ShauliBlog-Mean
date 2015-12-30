@@ -17,13 +17,22 @@ angular.module('myApp').controller('CommentsCtrl', function($rootScope,$scope,$h
         method: 'GET',
         url: '/comments'
     }).then(function successCallback(response) {
-        $scope.comments = response.data.JSON;
+        $scope.comments = response.data;
     }, function errorCallback(response) {
         console.log("error with  get comments");
     });
 
-    $scope.createComment = function(comment){
+    $http({
+        method: 'GET',
+        url: '/posts'
+    }).then(function successCallback(response) {
+        $scope.posts = response.data.JSON;
+    }, function errorCallback(response) {
+        console.log("error with  get posts");
+    });
 
+    $scope.createComment = function(comment){
+        comment.PostId = comment.PostId._id;
         comment.Release = new Date();
         $http({
             method: 'POST',
@@ -31,8 +40,10 @@ angular.module('myApp').controller('CommentsCtrl', function($rootScope,$scope,$h
             data: comment
         }).then(function successCallback(response) {
             console.log("OK");
+            window.location.href = "/#/Comments";
         }, function errorCallback(response) {
             console.log("ERROR");
+            window.location.href = "/#/Comments/create";
         });
     }
     $scope.loadEdit = function(commentId){
@@ -50,6 +61,18 @@ angular.module('myApp').controller('CommentsCtrl', function($rootScope,$scope,$h
         }else{
             window.location.href = "/#/Comments/";
         }
+    }
+
+    $scope.deleteComment = function(commentId){
+        $http({
+            method: 'DELETE',
+            url: '/comments' +"=" + commentId
+        }).then(function successCallback(response) {
+            $scope.comments = response.data;
+            console.log("post deleted successfully");
+        }, function errorCallback(response) {
+            console.log("ERROR with deleted post");
+        });
     }
 
 });

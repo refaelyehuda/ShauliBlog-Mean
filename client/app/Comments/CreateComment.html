@@ -2,10 +2,11 @@
 <div class="form-horizontal">
 
     <div class="form-group">
-        <label class="control-label col-md-2" for="FirstName">Post Id</label>
+        <label class="control-label col-md-2" for="FirstName">Post Title</label>
         <!--TODO need to implement select list -->
         <div class="col-md-10">
-            <input class="text-box single-line valid" id="PostId" name="PostId"  ng-model="commentToCreate.PostId" type="text">
+            <select ng-options="post.Title for post in posts" ng-model="commentToCreate.PostId"></select>
+            <!--<input class="text-box single-line valid" id="PostId" name="PostId"  ng-model="commentToCreate.PostId" type="text">-->
         </div>
     </div>
 
@@ -27,13 +28,6 @@
         <label class="control-label col-md-2" for="Text">Text</label>
         <div class="col-md-10">
             <input class="text-box single-line valid" id="Text" name="Text"  ng-model="commentToCreate.Text" type="text">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2" for="UserName">UserName</label>
-        <div class="col-md-10">
-            <input class="text-box single-line valid" id="UserName" name="UserName"  ng-model="commentToCreate.UserName" type="text">
         </div>
     </div>
 

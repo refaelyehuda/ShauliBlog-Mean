@@ -1,0 +1,44 @@
+<h2>Index</h2>
+
+<p>
+    <a class="Button" href="/#/Comments/create">Create New Comment</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            WebSiteCritic
+        </th>
+        <th>
+            Text
+        </th>
+        <th>
+            Release
+        </th>
+        <th></th>
+    </tr>
+<!--FIXME need to check why we do not see comments per post -->
+    <tr ng-repeat ="c  in commentPerPost">
+        <td>
+            {{c.Title}}
+        </td>
+        <td>
+            {{c.WebSiteCritic}}
+        </td>
+        <td>
+            {{c.Text}}
+        </td>
+        <td>
+            {{c.Release}}
+        </td>
+        <td>
+            <button class="Button" ng-click="loadEdit(comment._id)">Edit</button>
+            <button class="Button"  ng-click="loadDetails(comment._id)">Details</button>
+            <button class="Button" ng-click="deleteComment(comment._id)">Delete</button>
+        </td>
+    </tr>
+
+
+</table>
