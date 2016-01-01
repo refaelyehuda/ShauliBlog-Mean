@@ -12,6 +12,13 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/Blog/Blog.html'
 
             })
+
+        .when('/ErrorComment',
+            {
+                controller: 'BlogCtrl',
+                templateUrl: '/app/Blog/ErrorComment.html'
+
+            })
         .when('/FanClubs',
             {
                 controller: 'FanClubsCtrl',

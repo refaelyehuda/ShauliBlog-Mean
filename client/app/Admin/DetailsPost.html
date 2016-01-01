@@ -52,7 +52,7 @@
             {{postToEdit.Text}}
         </dd>
 
-        <dt>
+        <dt  ng-show="{{postToEdit.Image}}">
             <!--@* this is a optional field  *@-->
              Image
         </dt>
@@ -60,10 +60,10 @@
         <dd>
             <!--@* this is an optional field therefore we check if it's empty  *@-->
             <!--@*dispaly the photo in details page *@-->
-            <img src="{{postToEdit.Image}}" width="650" height="388" />
+            <img ng-show="{{postToEdit.Image}}" src="{{postToEdit.Image}}" width="650" height="388" />
         </dd>
 
-        <dt>
+        <dt  ng-show="{{postToEdit.Video}}">
             Video
         </dt>
 
@@ -71,7 +71,7 @@
 
             <br />
             <!--@*dispaly the video in details page *@-->
-            <video controls="controls">
+            <video  ng-show="{{postToEdit.Video}}" controls="controls">
                 <source src="{{postToEdit.Video}}" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>

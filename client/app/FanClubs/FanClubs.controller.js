@@ -68,7 +68,6 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
         }
 
     }
-//FIXME need to fix display data that get from the server ng-repeat doesn't work
     $scope.groupByYear = function(){
 
         $http({

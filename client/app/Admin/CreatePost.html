@@ -1,70 +1,103 @@
 <h1>Create a post</h1>
 
-<div class="form-horizontal">
-    <div class="form-group">
-        <label class="control-label col-md-2" for="Title">Title</label>
-        <div class="col-md-10">
-            <input class="text-box single-line valid" id="Title" name="Title"  ng-model="postToCreate.Title" type="text">
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2" for="Author">Author</label>
-        <div class="col-md-10">
-            <input class="text-box single-line valid" id="Author" name="Author"  ng-model="postToCreate.Author" type="text">
-        </div>
-    </div>
+<form class="form-style-9">
+    <ul>
+        <li>
+            <input type="text" name="field1" class="field-style field-split align-left" placeholder="Title" ng-model="postToCreate.Title"  />
+            <input type="text" name="field2" class="field-style field-split align-right" placeholder="Author" ng-model="postToCreate.Author" />
 
-    <div class="form-group">
-        <label class="control-label col-md-2" for="WebSite">WebSite</label>
-        <div class="col-md-10">
-            <input class="text-box single-line valid" id="WebSite" name="WebSite"  ng-model="postToCreate.WebSite" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2" for="Category">Category</label>
-        <div class="col-md-10">
-            <input class="text-box single-line valid" id="Category" name="Category"  ng-model="postToCreate.Category" type="text">
-        </div>
-    </div>
+        </li>
+        <li>
+            <input type="url" name="field3" class="field-style field-split align-left" placeholder="WebSite" ng-model="postToCreate.WebSite" />
+            <input type="text" name="field4" class="field-style field-split align-right" placeholder="Category" ng-model="postToCreate.Category"  />
+        </li>
+        <li>
+            <input type="text" name="field5" class="field-style field-split align-right" placeholder="Image is optional" ng-model="postToCreate.Image"  />
+            <input type="text" name="field6" class="field-style field-split align-left" placeholder="Video is optional" ng-model="postToCreate.Video"  />
+        </li>
+        <li>
+            <textarea name="field7" class="field-style" placeholder="Message"></textarea>
+        </li>
+        <li>
 
-    <div class="form-group">
-        <label class="control-label col-md-2" for="Text">Text</label>
-        <div class="col-md-10">
-            <input class="text-box single-line valid" id="Text" name="Text"  ng-model="postToCreate.Text" type="text">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <!--@*The for option enables us to click on the Image word and check the checkbox*@-->
-        <label class="control-label col-md-2" for="ShowImage">Image</label>
-        <input type="checkbox" id="ShowImage" class="OpenClose">
-        <div class="col-md-10">
-            <!--@*The input type = "file" gaves us the option to browse data from our own computer and load it to the server*@-->
-            <!--FIXME The input of file should be fixed-->
-            <input type="text" name="image"  id="image" ng-model="postToCreate.Image" />
-            <!--<input type="file" name="image"  id="image" ng-model="fanToCreate.Image" accept="image/*" app-filereader />-->
-        </div>
-    </div>
-
-    <div class="form-group">
-        <!--The for option enables us to click on the video word and check the checkbox-->
-        <label class="control-label col-md-2" for="ShowVideo">Video</label>
-        <input type="checkbox" id="ShowVideo" class="OpenClose">
-        <div class="col-md-10">
-            <!--The input type = "file" gaves us the option to browse data from our own computer and load it to the server-->
-            <input type="text" name="video" id="video" ng-model="postToCreate.Video" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input ng-click="createPost(postToCreate)" value="Create" class="Button" />
-        </div>
-    </div>
-</div>
-
+            <button class="Button" ng-click="createPost(postToCreate)">Create</button>
+        </li>
+    </ul>
+</form>
 
 <div>
     <a class="Button" href="/#/Admin/">Back to List</a>
 </div>
+
+
+<!--<h1>Create a post</h1>-->
+
+<!--<div class="form-horizontal">-->
+    <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-2" for="Title">Title</label>-->
+        <!--<div class="col-md-10">-->
+            <!--<input class="text-box single-line valid" id="Title" name="Title"  ng-model="postToCreate.Title" type="text">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-2" for="Author">Author</label>-->
+        <!--<div class="col-md-10">-->
+            <!--<input class="text-box single-line valid" id="Author" name="Author"  ng-model="postToCreate.Author" type="text">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-2" for="WebSite">WebSite</label>-->
+        <!--<div class="col-md-10">-->
+            <!--<input class="text-box single-line valid" id="WebSite" name="WebSite"  ng-model="postToCreate.WebSite" type="text">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-2" for="Category">Category</label>-->
+        <!--<div class="col-md-10">-->
+            <!--<input class="text-box single-line valid" id="Category" name="Category"  ng-model="postToCreate.Category" type="text">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<label class="control-label col-md-2" for="Text">Text</label>-->
+        <!--<div class="col-md-10">-->
+            <!--<input class="text-box single-line valid" id="Text" name="Text"  ng-model="postToCreate.Text" type="text">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--&lt;!&ndash;@*The for option enables us to click on the Image word and check the checkbox*@&ndash;&gt;-->
+        <!--<label class="control-label col-md-2" for="ShowImage">Image</label>-->
+        <!--<input type="checkbox" id="ShowImage" class="OpenClose">-->
+        <!--<div class="col-md-10">-->
+            <!--&lt;!&ndash;@*The input type = "file" gaves us the option to browse data from our own computer and load it to the server*@&ndash;&gt;-->
+            <!--&lt;!&ndash;FIXME The input of file should be fixed&ndash;&gt;-->
+            <!--<input type="text" name="image"  id="image" ng-model="postToCreate.Image" />-->
+            <!--&lt;!&ndash;<input type="file" name="image"  id="image" ng-model="fanToCreate.Image" accept="image/*" app-filereader />&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--&lt;!&ndash;The for option enables us to click on the video word and check the checkbox&ndash;&gt;-->
+        <!--<label class="control-label col-md-2" for="ShowVideo">Video</label>-->
+        <!--<input type="checkbox" id="ShowVideo" class="OpenClose">-->
+        <!--<div class="col-md-10">-->
+            <!--&lt;!&ndash;The input type = "file" gaves us the option to browse data from our own computer and load it to the server&ndash;&gt;-->
+            <!--<input type="text" name="video" id="video" ng-model="postToCreate.Video" />-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<div class="col-md-offset-2 col-md-10">-->
+            <!--<input ng-click="createPost(postToCreate)" value="Create" class="Button" />-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--<div>-->
+    <!--<a class="Button" href="/#/Admin/">Back to List</a>-->
+<!--</div>-->

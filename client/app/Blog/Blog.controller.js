@@ -14,5 +14,26 @@ angular.module('myApp').controller('BlogCtrl',function($rootScope,$scope,$http, 
         console.log("error with  get posts");
     });
 
-
+    $scope.createComment = function(comment,post){
+        comment.PostId = post._id;
+        comment.Release = new Date();
+        $http({
+            method: 'POST',
+            url: '/comment',
+            data: comment
+        }).then(function successCallback(response) {
+            console.log("OK");
+            $http({
+                method: 'GET',
+                url: '/postsWithComments'
+            }).then(function successCallback(response) {
+                $scope.posts = response.data;
+            }, function errorCallback(response) {
+                console.log("error with  get posts");
+            });
+        }, function errorCallback(response) {
+            console.log("ERROR");
+            window.location.href = "/#/ErrorComment";
+        });
+    }
 });
