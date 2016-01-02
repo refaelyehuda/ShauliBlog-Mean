@@ -1,7 +1,7 @@
 /**
  * Created by refael yehuda on 12/24/2015.
  */
-angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http, $route, $routeParams) {
+angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http,$location, $route, $routeParams) {
 
 
     var postById = function(postId){
@@ -81,15 +81,6 @@ angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http
     }
 
     $scope.commentPerPost = function(postId){
-        $http({
-            method: 'GET',
-            url: '/commentPerPost' +"=" + postId
-        }).then(function successCallback(response) {
-            $rootScope.commentPerPost = response.data;
-            console.log("get comment per post");
-            window.location.href = "/#/Admin/CommentsPerPost";
-        }, function errorCallback(response) {
-            console.log("ERROR with deleted post");
-        });
+        window.location.href = "/#/Admin/CommentsPerPost/"+postId;
     }
 });

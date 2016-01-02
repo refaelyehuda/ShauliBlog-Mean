@@ -73,9 +73,9 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/Admin/DetailsPost.html'
 
             })
-        .when('/Admin/CommentsPerPost',
+        .when('/Admin/CommentsPerPost/:postId',
             {
-                controller: 'AdminCtrl',
+                controller: 'CommentPerPostCtrl',
                 templateUrl: '/app/Admin/CommentsPerPost.html'
 
             })
