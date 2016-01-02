@@ -23,11 +23,12 @@ var mongo  = {
     },
     updatePost :function(collection , post,callback){
         var status;
+        var postId = post._id;
+        delete post._id;
             collection.updateOne(
-                { "_id" : new ObjectId(post._id) },
+                { _id : new ObjectId(postId) },
                 {
                     $set: post,
-                    $currentDate: { "lastModified": true }
                 }, function(err, results) {
                     if(!err){
                         console.log("update post success");

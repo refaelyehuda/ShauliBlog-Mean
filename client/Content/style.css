@@ -836,3 +836,29 @@ li.active a, li.active a:hover {
     background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
     background-color: #28739E;
 }
+/*style of Socket.io*/
+.news_container {
+	width: 18em;
+	height: 20em;
+	margin: 1em auto;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.marquee {
+	top: 6em;
+	position: relative;
+	box-sizing: border-box;
+	animation: marquee 25s linear infinite;
+}
+
+.marquee:hover {
+	animation-play-state: paused;
+}
+
+/* Make it move! */
+@keyframes marquee {
+	0%   { top:   20em }
+	100% { top: -50em }
+}

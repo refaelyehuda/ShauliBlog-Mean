@@ -108,5 +108,23 @@ app.config(['$routeProvider',function($routeProvider){
                 templateUrl: '/app/Comments/DetailsComment.html'
 
             })
+        .when('/Statistics',
+            {
+                controller: 'StatisticsCtrl',
+                templateUrl: '/app/Statistics/index.html'
+
+            })
         .otherwise({redirectTo:'/'});
 }]);
+
+angular.module('myApp').controller('RootCtrl',function($rootScope,$scope,$http, $route, $routeParams) {
+
+    $scope.news = [];
+    $scope.socket = io();
+    $scope.socket.on('news_update', function(msg){
+        console.log(msg.data);
+        $scope.news = msg.data;
+        $scope.$apply();
+    });
+
+});

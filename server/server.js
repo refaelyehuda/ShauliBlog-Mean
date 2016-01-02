@@ -74,7 +74,6 @@ app.get("/groupFansByYear",function(request, response){
             // Fetch the collection ads
             var collection = db.collection('Users');
             //group by Birthdate og the fans
-            //aggregate(   [ { $group : { _id : { Birthdate: "$Birthdate" },count: { $sum: 1 }}}
             collection.aggregate(   [ { $group : { _id : { Birthdate: "$Birthdate" },count: { $sum: 1
             }}}]).toArray(function(err, result) {
                 response.send(result);
@@ -111,8 +110,9 @@ app.get("/groupFansByGender",function(request, response){
 });
 
 app.put("/fans", function(request, response){
-
+    var fanId = request.body._id;
     var fanToUpdates = request.body;
+    delete fanToUpdates._id;
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
             console.log("Connection to MongoDb established");
@@ -120,7 +120,7 @@ app.put("/fans", function(request, response){
             var collection = db.collection('Users');
             //find the fan that need to update according the id and update the data
             collection.updateOne(
-                { "_id" : new ObjectId(request.body._id) },
+                { "_id" : new ObjectId(fanId) },
                 {
                     $set: fanToUpdates,
                     $currentDate: { "lastModified": true }
@@ -275,6 +275,75 @@ app.get("/commentPerPost=:postId", function(request, response){
 
 });
 
+app.get("/categoryCount", function(request, response){
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //group by Birthdate og the fans
+            collection.aggregate(   [ { $group : { _id : { label: "$Category" },value: { $sum: 1
+            }}}]).toArray(function(err, result) {
+                var dataToSend =[];
+                var index = 0;
+                result.forEach(function (data) {
+                    var temp = {label:data._id.label,value : data.value};
+                    dataToSend.push (temp);
+                    //dataToSend[index].label=data._id.label;
+                    //dataToSend[index].value = data.value;
+                    index++;
+                    if(dataToSend.length == result.length){
+                        response.send(dataToSend);
+                    }
+                })
+            });
+/*
+ {
+ "label": "FoxPro",
+ "value": 32170,
+ "color": "#248838"
+ }
+ */
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+app.get("/authorCount", function(request, response){
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //group by Birthdate og the fans
+            collection.aggregate(   [ { $group : { _id : { label: "$Author" },value: { $sum: 1
+            }}}]).toArray(function(err, result) {
+                var dataToSend =[];
+                var index = 0;
+                result.forEach(function (data) {
+                    //create the structure of the d3 library to show pie
+                    var temp = {label:data._id.label,value : data.value};
+                    dataToSend.push (temp);
+                    index++;
+                    if(dataToSend.length == result.length){
+                        response.send(dataToSend);
+                    }
+                })
+            });
+            /*
+             {
+             "label": "FoxPro",
+             "value": 32170,
+             "color": "#248838"
+             }
+             */
+        }else{
+            console.log(err);
+        }
+    });
+});
+
 app.post("/posts", function(request, response){
     var success = 1;
     var post =request.body;
@@ -288,6 +357,7 @@ app.post("/posts", function(request, response){
             mongoQuery.insertPost(collection,post,function(status){
                 if(status == success ){
                     db.close();
+                    send_update();
                     response.send("OK");
                 }else{
                     db.close();
@@ -316,6 +386,7 @@ app.put("/posts", function(request, response){
                 mongoQuery.updatePost(collection,post,function(status){
                     if(status == success ){
                         db.close();
+                        send_update();
                         response.send("OK");
                     }else{
                         db.close();
@@ -477,8 +548,40 @@ app.delete("/comments=:commentId" , function(request, response){
     });
 });
 
+
+
 var server = app.listen(8080 , function(){
     var host = server.address().address;
     var port = server.address().port;
     console.log('app listening at http://%s:%s', host, port);
+});
+
+//This will sent the last 4 posts to all of the connected clients.
+var send_update = function () {
+
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+            collection.find().sort( { Release: -1 } ).limit(4).toArray(function (err, data) {
+                //response.send({JSON : data});
+                var msg = {type: "new_post",data:data}
+                io.emit('news_update',msg);
+                console.log ('sent ' + msg);
+            });
+        }else{
+            console.log(err);
+        }
+    });
+
+    //db.Comments.find().sort( { Release: -1 } ).limit(2)
+};
+
+
+var io = require('socket.io')(server);
+io.on('connection', function (socket) {
+    console.log('user connected');
+    send_update();
 });
