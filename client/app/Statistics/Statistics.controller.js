@@ -8,6 +8,7 @@ angular.module('myApp').controller('StatisticsCtrl', function($rootScope,$scope,
         url: '/categoryCount'
     }).then(function successCallback(response) {
         $scope.categories = response.data;
+        //http://d3pie.org/
         $scope.pie = new d3pie("pieCategories", {
             "header": {
                 "title": {
@@ -96,6 +97,7 @@ angular.module('myApp').controller('StatisticsCtrl', function($rootScope,$scope,
         url: '/authorCount'
     }).then(function successCallback(response) {
         $scope.authors = response.data;
+        //http://d3pie.org/
         $scope.pie2 = new d3pie("pieAuthor", {
             "header": {
                 "title": {

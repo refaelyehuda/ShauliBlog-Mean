@@ -63,8 +63,10 @@ angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http
             data: post
         }).then(function successCallback(response) {
             console.log("OK");
+            window.location.href = "/#/Admin";
         }, function errorCallback(response) {
             console.log("ERROR");
+            window.location.href = "/#/Admin/edit"
         });
     }
 

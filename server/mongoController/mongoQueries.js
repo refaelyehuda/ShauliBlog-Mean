@@ -21,9 +21,24 @@ var mongo  = {
 
         });
     },
+    findPost : function(collection , postId,callback){
+        collection.find(
+            {"_id": new ObjectId(postId)}).toArray(
+            function(err, results) {
+                if(!err){
+                    console.log("find post success");
+                    callback(mongo.success ,results );
+                }else{
+                    console.log("error with find post");
+                    callback(mongo.error);
+                }
+            }
+        );
+    },
     updatePost :function(collection , post,callback){
         var status;
         var postId = post._id;
+        //delete the post id that generate by mongo and not need to change
         delete post._id;
             collection.updateOne(
                 { _id : new ObjectId(postId) },

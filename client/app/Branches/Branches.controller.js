@@ -30,13 +30,6 @@ angular.module('myApp').controller('BranchesCtrl', function($scope, $http) {
 
         var myLatLng = new google.maps.LatLng(data.Latitude,data.Longitude);
         var marker = new google.maps.Marker({ position: myLatLng, map: map, title:data.Description});
-
-         //myLatLng = new google.maps.LatLng('31.77723', '35.22644');
-         //marker = new google.maps.Marker({ position: myLatLng, map: map, title: 'In the city center' });
-         //
-         //
-         //myLatLng = new google.maps.LatLng('31.99095', '34.77131');
-         //marker = new google.maps.Marker({ position: myLatLng, map: map, title: 'Industrial Area' });
     }
 
 });

@@ -46,14 +46,6 @@ angular.module('myApp').controller('CommentsCtrl', function($rootScope,$scope,$h
             window.location.href = "/#/Comments/create";
         });
     }
-    $scope.loadEdit = function(commentId){
-        $rootScope.commentToEdit = commentById(commentId);
-        if($rootScope.commentToEdit != undefined ){
-            window.location.href = "/#/Comments/edit"
-        }else{
-            window.location.href = "/#/Comments";
-        }
-    }
     $scope.loadDetails = function(commentId){
         $rootScope.commentToEdit = commentById(commentId);
         if($rootScope.commentToEdit != undefined ){

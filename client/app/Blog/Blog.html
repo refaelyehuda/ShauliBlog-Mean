@@ -12,33 +12,23 @@
                     <form action="#" method="search">
                         <h2>Search</h2>
                         <p>
-                            <label for="from-date">From Date</label>
-                            <input id="from-date" type="date" name="fromdate" />
-                        </p>
-                        <p>
-                            <label for="to-date">To Date</label>
-                            <input id="to-date" type="date" name="todate" />
+                            <label id="Category">Category</label>
+                            <input type="text" name="Category" placeholder="Enter category name here" ng-model="searchCategory" />
                         </p>
                         <p>
                             <label id="author_name">Name of author</label>
-                            <input type="text" name="author_name" placeholder="Enter author name here" />
+                            <input type="text" name="author_name" placeholder="Enter author name here" ng-model="searchAuthor" />
                         </p>
                         <p>
                             <label id="email">Title</label>
-                            <input name="title" id="title" type="text" placeholder="Enter Title here" />
+                            <input name="title" id="title" type="text" placeholder="Enter Title here" ng-model="searchTitle" />
                         </p>
-                        <p>
-                            <label id="Min comments per post">Minimum comments </label>
-                            <input type="range" name="MinCommentsPerPost" min="0" max="10" />
-                        </p>
-                        <p><input type="submit" value="Search" class="search" /></p>
                     </form>
                 </section>
-
-
             </div>
+            <div id="seperateBetween"></div>
             <!--<div id="resultTarget" class="tab">-->
-            <section ng-repeat="post in posts">
+            <section ng-repeat="post in posts | filter:searchTitle | filter:searchAuthor | filter:searchCategory">
                 <article class="blogPost">
                     <header>
                         <h2>{{post.Title}}</h2>

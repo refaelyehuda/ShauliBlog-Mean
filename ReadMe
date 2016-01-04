@@ -1,0 +1,25 @@
+To activate this project please do the following :
+
+install MongoDB
+Create DB with name Shauli
+Create collections :
+1. Posts
+2 Comments
+3.Users
+4.Locations
+
+In collections Users and Locations you need to insert values manually for example :
+
+Locations :
+{"Description" : "Tel Aviv Fans", "Latitude" : 32.06363, "Longitude" : 34.77623, "Name" : "Fans Club Tel Aviv" }
+{"Description" : "In the city center", "Latitude" : 31.77723, "Longitude" : 35.22644, "Name" : "Fans Club Jerusalem" }
+{"Description" : "Industrial Area", "Latitude" : 31.99095, "Longitude" : 34.77131, "Name" : "Fans Club reshon letzion" }
+
+Users :
+{"Username" : "refael", "Password" : 123456, "Firstname" : "refael", "Lastname" : "yehuda", "Gender" : "male", "Birthdate" : "29/9/89", "Seniority" : 1, "lastModified" : ISODate("2015-12-27T23:22:23.941Z"), "Role" : "admin" }
+{"Username" : "yakir", "Password" : 123456, "Firstname" : "yakir", "Lastname" : "twito", "Gender" : "male", "Birthdate" : "14/3/89", "Seniority" : 3 }
+{"Username" : "Dhay", "Password" : 123456, "Firstname" : "Dhay", "Lastname" : "yehuda", "Gender" : "male", "Birthdate" : ISODate("1971-09-29T00:00:00Z"), "Seniority" : 2, "Role" : "admin" }
+
+After this changes the project will work with al features
+
+Enjoy ☺

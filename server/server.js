@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 router.use(express.static(__dirname + '/../client'));
 
 app.use('/', router);
+//root
 app.get("/", function(request, response){
     response.sendFile(__dirname + "/index.html");
 });
@@ -150,7 +151,7 @@ app.param('fanId', function(req, res, next, fanId) {
     //check if we have more routes to do
     next();
 });
-
+//delte fan by id
 app.delete("/fans=:fanId" , function(request, response){
     console.log(request.fanId);
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -185,7 +186,7 @@ app.delete("/fans=:fanId" , function(request, response){
         }
     });
 });
-
+//get all post
 app.get("/posts", function(request, response){
     // Connect to the db
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -202,7 +203,7 @@ app.get("/posts", function(request, response){
         }
     });
 });
-
+//get all post with comment of all post
 app.get("/postsWithComments", function(request, response){
     // Connect to the db
     var lengthObject = { length: 0 };
@@ -215,7 +216,6 @@ app.get("/postsWithComments", function(request, response){
             //find all ads in collection that have the screen id
             collection.find().toArray(function (err, data) {
                 lengthObject.length = data.length;
-//FIXME need to fix the logic of send post with comments
                 data.forEach(function(post_data){
                     var collection_comments = db.collection('Comments');
                         collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,comments){
@@ -232,15 +232,7 @@ app.get("/postsWithComments", function(request, response){
         }
     });
 });
-
-//app.param('postId', function(req, res, next, postId) {
-//    // print  screenId to console
-//    console.log('postId : ' + postId);
-//    req.postId = postId;
-//    //check if we have more routes to do
-//    next();
-//});
-
+// get cooments per post
 app.get("/commentPerPost=:postId", function(request, response){
     var postId =request.postId;
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -274,7 +266,7 @@ app.get("/commentPerPost=:postId", function(request, response){
     });
 
 });
-
+// send category and num of record with this category to the client for display graph
 app.get("/categoryCount", function(request, response){
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
@@ -309,7 +301,7 @@ app.get("/categoryCount", function(request, response){
         }
     });
 });
-
+// send author and num of record of this author to the client for display graph
 app.get("/authorCount", function(request, response){
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
@@ -343,7 +335,7 @@ app.get("/authorCount", function(request, response){
         }
     });
 });
-
+//Create post
 app.post("/posts", function(request, response){
     var success = 1;
     var post =request.body;
@@ -372,7 +364,7 @@ app.post("/posts", function(request, response){
         }
     });
 });
-
+//update post
 app.put("/posts", function(request, response){
     var success = 1;
     var post =request.body;
@@ -417,30 +409,47 @@ app.delete("/posts=:postId" , function(request, response){
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
         if (!err) {
             console.log("Connection to MongoDb established");
-            // Fetch the collection ads
+            // Fetch the collection Posts
             var collection = db.collection('Posts');
-            //find the fan that need to update according the id and update the data
-            collection.deleteOne(
-                {"_id": new ObjectId(postId)},
-                function(err, results) {
-                    if(!err){
-                        console.log("remove post success");
-                        //find all ads in collection that have the screen id
-                        collection.find().toArray(function (err, data) {
-                            if(!err){
-                                db.close();
-                                response.send(data);
-                            }else{
-                                db.close();
-                                console.log(err);
-                            }
-                        });
-                    }else{
-                        db.close();
-                        console.log("error with remove post");
-                    }
+            //find the post that we want to delete
+            collection.find({"_id": new ObjectId(postId)}).toArray(function(err,data){
+                if(!err){
+                    var collection_comments = db.collection('Comments');
+                    //remove all comments of this post from the Comments collection
+                    collection_comments.deleteMany({_id : {$in : data[0].Comments}},function (err,result){
+                        if(!err){
+                            console.log("delete all comments per postId : "+postId );
+                            //delete the post by ID
+                            collection.deleteOne(
+                                {"_id": new ObjectId(postId)},
+                                function(err, results) {
+                                    if(!err){
+                                        console.log("remove post success");
+                                        //Get the update collection
+                                        collection.find().toArray(function (err, data) {
+                                            if(!err){
+                                                db.close();
+                                                //send the update collection to the client
+                                                response.send(data);
+                                            }else{
+                                                db.close();
+                                                console.log(err);
+                                            }
+                                        });
+                                    }else{
+                                        db.close();
+                                        console.log("error with remove post");
+                                    }
+                                }
+                            );
+                        }else{
+                            console.log("Erro with delete all comments per postId : "+postId );
+                        }
+                    })
+                }else{
+                    console.log("Error with get post by post id");
                 }
-            );
+            })
         }else{
             console.log(err);
         }
@@ -564,7 +573,7 @@ var send_update = function () {
             console.log("Connection to MongoDb established");
             // Fetch the collection ads
             var collection = db.collection('Posts');
-            //find all ads in collection that have the screen id
+            //find four newest post
             collection.find().sort( { Release: -1 } ).limit(4).toArray(function (err, data) {
                 //response.send({JSON : data});
                 var msg = {type: "new_post",data:data}
@@ -575,8 +584,6 @@ var send_update = function () {
             console.log(err);
         }
     });
-
-    //db.Comments.find().sort( { Release: -1 } ).limit(2)
 };
 
 
