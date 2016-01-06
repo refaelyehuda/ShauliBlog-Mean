@@ -40,7 +40,7 @@ app.get("/locations", function(request, response){
             var collection = db.collection('Locations');
             //find all ads in collection that have the screen id
             collection.find().toArray(function (err, data) {
-            response.send({JSON : data});
+            response.send(data);
             });
         }else{
             console.log(err);
