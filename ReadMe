@@ -1,4 +1,6 @@
-To activate this project please do the following :
+This project is write in Mean stack technology (MongoDB,express,angular,nodejs)
+
+To activate this project please do the following Or install MongoDB and run the batch file :
 
 install MongoDB
 Create DB with name Shauli

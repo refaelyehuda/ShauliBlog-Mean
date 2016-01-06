@@ -1,8 +1,7 @@
 /**
  * Created by refael yehuda on 12/24/2015.
  */
-angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http,$location, $route, $routeParams) {
-
+angular.module('admin').controller('AdminCtrl', function($rootScope,$scope,$http,$location, $route, $routeParams) {
 
     var postById = function(postId){
         for (var i=0;i<$scope.posts.length;i++){
@@ -14,6 +13,7 @@ angular.module('myApp').controller('AdminCtrl', function($rootScope,$scope,$http
         return null;
     }
     //get the posts from the DB
+
     $http({
         method: 'GET',
         url: '/posts'

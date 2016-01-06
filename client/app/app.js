@@ -2,8 +2,12 @@
  * Created by refael yehuda on 12/23/2015.
  */
 'use strict'
-var app = angular.module('myApp', ['ngRoute']);
-
+//admin module
+var admin = angular.module('admin', ['ngRoute']);
+//admin Statistics
+var Statistics = angular.module('Statistics', ['ngRoute']);
+//main module
+var app = angular.module('myApp', ['ngRoute','admin','Statistics']);
 app.config(['$routeProvider',function($routeProvider){
     $routeProvider
         .when('/',
@@ -128,3 +132,6 @@ angular.module('myApp').controller('RootCtrl',function($rootScope,$scope,$http, 
     });
 
 });
+
+
+

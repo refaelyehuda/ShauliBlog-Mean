@@ -1,7 +1,7 @@
 /**
  * Created by refael yehuda on 12/24/2015.
  */
-angular.module('myApp').controller('StatisticsCtrl', function($rootScope,$scope,$http, $route, $routeParams) {
+angular.module('Statistics').controller('StatisticsCtrl', function($rootScope,$scope,$http, $route, $routeParams) {
     //get num of post per category
     $http({
         method: 'GET',
