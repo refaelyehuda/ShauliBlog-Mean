@@ -9,26 +9,35 @@
         <div class="tab-content">
             <div id="tab1" class="tab active">
                 <section id="search">
-                    <form action="#" method="search">
+                    <form>
                         <h2>Search</h2>
                         <p>
+                            <label for="from-date">From Date</label>
+                            <input id="from-date" type="date" name="fromdate"  ng-model="search.fromDate" />
+                        </p>
+                        <p>
+                            <label for="to-date">To Date</label>
+                            <input id="to-date" type="date" name="todate"  ng-model="search.toDate" />
+                        </p>
+                        <p>
                             <label id="Category">Category</label>
-                            <input type="text" name="Category" placeholder="Enter category name here" ng-model="searchCategory" />
+                            <input type="text" name="Category" placeholder="Enter category name here" ng-model="search.Category" />
                         </p>
                         <p>
                             <label id="author_name">Name of author</label>
-                            <input type="text" name="author_name" placeholder="Enter author name here" ng-model="searchAuthor" />
+                            <input type="text" name="author_name" placeholder="Enter author name here" ng-model="search.Author" />
                         </p>
                         <p>
                             <label id="email">Title</label>
-                            <input name="title" id="title" type="text" placeholder="Enter Title here" ng-model="searchTitle" />
+                            <input name="title" id="title" type="text" placeholder="Enter Title here" ng-model="search.Title" />
                         </p>
+                        <button ng-click="searchPost(search)" class="search">Search</button>
                     </form>
                 </section>
             </div>
             <div id="seperateBetween"></div>
             <!--<div id="resultTarget" class="tab">-->
-            <section ng-repeat="post in posts | filter:searchTitle | filter:searchAuthor | filter:searchCategory">
+            <section ng-repeat="post in posts">
                 <article class="blogPost">
                     <header>
                         <h2>{{post.Title}}</h2>

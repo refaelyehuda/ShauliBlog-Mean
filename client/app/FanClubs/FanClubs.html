@@ -10,19 +10,23 @@
 
 
     <section id="search">
-        <form action="#" method="search" class="form">
+        <form>
             <h2>Search</h2>
             <p>
                 <label id="author_name">First Name</label>
-                <input ng-model="searchFirstName"  type="text" name="name" placeholder="Enter name here" />
+                <input ng-model="search.Firstname"  type="text" name="name" placeholder="Enter name here" />
             </p>
             <p>
                 <label id="email">Gender</label>
-                <input ng-model="searchGender" name="gender" id="title" type="text" placeholder="Enter Gender here" />
+                <input ng-model="search.Gender" name="gender" id="title" type="text" placeholder="Enter Gender here" />
             </p>
             <p>
                 <label for="to-date">BirthDate</label>
-                <input ng-model="BirthDate" id="to-date" type="date" name="birthdate" />
+                <input ng-model="search.Birthdate" id="to-date" type="date" name="birthdate" />
+            </p>
+
+            <p>
+            <button ng-click="searchFans(search)" class="search">Search</button>
             </p>
         </form>
     </section>
@@ -48,7 +52,7 @@
             <th></th>
         </tr>
 
-        <tr ng-repeat ="fan in fansclubs | filter:searchFirstName | filter:searchGender | filter:BirthDate ">
+        <tr ng-repeat ="fan in fansclubs">
             <td>
                 {{fan.Firstname}}
             </td>

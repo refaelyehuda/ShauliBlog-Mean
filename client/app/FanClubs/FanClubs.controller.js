@@ -104,4 +104,31 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
         });
     }
 
+    /**
+     * send the search request to the server
+     */
+    $scope.searchFans = function(search){
+        if(!search.FirstName){
+            delete search.FirstName
+        }
+        if(!search.Gender){
+            delete search.Gender
+        }
+        if(!search.BirthDate){
+            delete search.BirthDate
+        }
+
+        /**
+         * send the search request to the server
+         */
+        $http({
+            method:'POST',
+            url: '/searchFans',
+            data: search
+        }).then(function successCallback(response) {
+            $scope.fansclubs = response.data;
+        }, function errorCallback(response) {
+            console.log("error with  search fans");
+        });
+    }
 });

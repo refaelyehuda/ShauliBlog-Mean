@@ -13,7 +13,11 @@ angular.module('myApp').controller('BlogCtrl',function($rootScope,$scope,$http, 
     }, function errorCallback(response) {
         console.log("error with  get posts");
     });
-
+    /**
+     * create a comment
+     * @param comment
+     * @param post
+     */
     $scope.createComment = function(comment,post){
         comment.PostId = post._id;
         comment.Release = new Date();
@@ -35,5 +39,43 @@ angular.module('myApp').controller('BlogCtrl',function($rootScope,$scope,$http, 
             console.log("ERROR");
             window.location.href = "/#/ErrorComment";
         });
+    }
+    /**
+     * send to server the search parameters to filter with
+     * @param search
+     */
+    $scope.searchPost = function(search){
+        /**
+         * check if there are arguments that are not  chosen
+         */
+        if(!search.fromDate){
+           delete search.fromDate
+        }
+        if(!search.toDate){
+            delete search.toDate;
+        }
+        if(!search.Category){
+           delete search.Category;
+        }
+        if(!search.Author){
+           delete search.Author;
+        }
+        if(!search.Title){
+           delete search.Title;
+        }
+
+        /**
+         * send the search request to the server
+         */
+        $http({
+            method:'POST',
+            url: '/searchPost',
+            data: search
+        }).then(function successCallback(response) {
+            $scope.posts = response.data;
+        }, function errorCallback(response) {
+            console.log("error with  get posts");
+        });
+
     }
 });

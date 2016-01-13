@@ -48,6 +48,9 @@ app.get("/locations", function(request, response){
     });
 
 });
+
+
+
 //get the fans that contains in the DB
 app.get("/fans", function(request, response){
     console.log("fansclub connection establish");
@@ -66,6 +69,31 @@ app.get("/fans", function(request, response){
         }
     });
 });
+
+app.post("/searchFans/", function(request, response){
+    //get the parameters from the request
+    var searchFans = request.body;
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection ads
+            var collection = db.collection('Users');
+            //find all ads in collection that have the screen id
+            collection.find(searchFans).toArray(function (err, data) {
+                if(!err){
+                    response.send(data);
+                }else{
+                    console.log(err);
+                }
+
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
 
 app.get("/groupFansByYear",function(request, response){
     // Connect to the db
@@ -203,6 +231,9 @@ app.get("/posts", function(request, response){
         }
     });
 });
+
+
+
 //get all post with comment of all post
 app.get("/postsWithComments", function(request, response){
     // Connect to the db
@@ -335,6 +366,49 @@ app.get("/authorCount", function(request, response){
         }
     });
 });
+
+//search post according to parameters
+app.post("/searchPost/", function(request, response){
+    //get the parameters from the request
+    var searchPost = request.body;
+    var lengthObject = { length: 0 };
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
+        if (!err) {
+            console.log("Connection to MongoDb established");
+            // Fetch the collection Posts
+            var collection = db.collection('Posts');
+            //find all ads in collection that have the screen id
+            collection.find(searchPost).toArray(function (err, data) {
+                if(!err){
+                    //if the return array is not empty
+                    if(data.length){
+                        lengthObject.length = data.length;
+                        //over all post and add the comments per post
+                        data.forEach(function(post_data){
+                            var collection_comments = db.collection('Comments');
+                            collection_comments.find({_id : {$in : post_data.Comments}}).toArray(function (err,comments){
+                                post_data.Comments = comments;
+                                lengthObject.length --;
+                                if(lengthObject.length == 0){
+                                    response.send(data);
+                                }
+                            })
+                        })
+                    }else{
+                        response.send(data);
+                    }
+
+                }
+
+            });
+        }else{
+            console.log(err);
+        }
+    });
+
+});
+
 //Create post
 app.post("/posts", function(request, response){
     var success = 1;
@@ -547,7 +621,7 @@ app.delete("/comments=:commentId" , function(request, response){
                         });
                     }else{
                         db.close();
-                        console.log("error with remove fan");
+                        console.log("error with remove comments");
                     }
                 }
             );
