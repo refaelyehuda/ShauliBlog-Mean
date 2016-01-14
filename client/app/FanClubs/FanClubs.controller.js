@@ -109,13 +109,13 @@ angular.module('myApp').controller('FanClubsCtrl',function($rootScope,$scope,$ht
      */
     $scope.searchFans = function(search){
         if(!search.FirstName){
-            delete search.FirstName
+            delete search.Firstname
         }
         if(!search.Gender){
             delete search.Gender
         }
-        if(!search.BirthDate){
-            delete search.BirthDate
+        if(!search.Birthdate){
+            delete search.Birthdate
         }
 
         /**

@@ -30,7 +30,9 @@ app.get("/", function(request, response){
 
 //FIXME need to fix delete fan
 
-//get the location of the branches
+/**
+ * get the location of the branches
+ */
 app.get("/locations", function(request, response){
     // Connect to the db
     MongoClient.connect("mongodb://localhost:27017/Shauli", function (err, db) {
@@ -50,8 +52,9 @@ app.get("/locations", function(request, response){
 });
 
 
-
-//get the fans that contains in the DB
+/**
+ * get the fans that contains in the DB
+ */
 app.get("/fans", function(request, response){
     console.log("fansclub connection establish");
     // Connect to the db
@@ -70,6 +73,9 @@ app.get("/fans", function(request, response){
     });
 });
 
+/**
+ * filter fans in mongo according to parameters that get from the client
+ */
 app.post("/searchFans/", function(request, response){
     //get the parameters from the request
     var searchFans = request.body;
@@ -93,7 +99,6 @@ app.post("/searchFans/", function(request, response){
         }
     });
 });
-
 
 app.get("/groupFansByYear",function(request, response){
     // Connect to the db
@@ -233,8 +238,9 @@ app.get("/posts", function(request, response){
 });
 
 
-
-//get all post with comment of all post
+/**
+ * get all posts with comments per post
+ */
 app.get("/postsWithComments", function(request, response){
     // Connect to the db
     var lengthObject = { length: 0 };
@@ -423,6 +429,7 @@ app.post("/posts", function(request, response){
             mongoQuery.insertPost(collection,post,function(status){
                 if(status == success ){
                     db.close();
+                    //update the client about the creation with socket.io
                     send_update();
                     response.send("OK");
                 }else{
@@ -503,6 +510,8 @@ app.delete("/posts=:postId" , function(request, response){
                                         collection.find().toArray(function (err, data) {
                                             if(!err){
                                                 db.close();
+                                                //update the client about the creation with socket.io
+                                                send_update();
                                                 //send the update collection to the client
                                                 response.send(data);
                                             }else{
