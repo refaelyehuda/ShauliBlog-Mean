@@ -1,0 +1,21 @@
+{
+	"_id" : ObjectId("56800ad6791f99d146f911fd"),
+	"Description" : "Tel Aviv Fans",
+	"Latitude" : 32.06363,
+	"Longitude" : 34.77623,
+	"Name" : "Fans Club Tel Aviv"
+}
+{
+	"_id" : ObjectId("56800b21791f99d146f911fe"),
+	"Description" : "In the city center",
+	"Latitude" : 31.77723,
+	"Longitude" : 35.22644,
+	"Name" : "Fans Club Jerusalem"
+}
+{
+	"_id" : ObjectId("56800b2f791f99d146f911ff"),
+	"Description" : "Industrial Area",
+	"Latitude" : 31.99095,
+	"Longitude" : 34.77131,
+	"Name" : "Fans Club reshon letzion"
+}

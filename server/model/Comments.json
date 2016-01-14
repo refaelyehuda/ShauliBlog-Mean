@@ -1,0 +1,25 @@
+{
+	"_id" : ObjectId("568a20aed3009814108614ad"),
+	"Title" : "Test comment",
+	"WebSiteCritic" : "http://ynet.co.il",
+	"Text" : "Test comment",
+	"PostId" : "568841183c219c30304df730",
+	"Release" : "2016-01-04T07:35:10.071Z"
+}
+{
+	"_id" : ObjectId("568a21f4ffd054741eb6e679"),
+	"Title" : "test delete",
+	"WebSiteCritic" : "http://yent.co.il",
+	"Text" : "test delete\ntest deletetest delete\ntest delete",
+	"PostId" : "568841183c219c30304df730",
+	"Release" : "2016-01-04T07:40:36.329Z"
+
+}
+{
+	"_id" : ObjectId("568afaeed5de489c05064aa7"),
+	"Title" : "Nice Horse",
+	"WebSiteCritic" : "http://mako.co.il",
+	"Text" : "Nice Horse",
+	"PostId" : "568afa23d5de489c05064aa6",
+	"Release" : "2016-01-04T23:06:22.218Z"
+}

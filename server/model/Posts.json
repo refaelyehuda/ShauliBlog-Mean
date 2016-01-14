@@ -1,0 +1,61 @@
+{
+	"_id" : ObjectId("56884b8ea097d8a00964c9e6"),
+	"Title" : "refael",
+	"Author" : "yehuda",
+	"WebSite" : "http://ynet.co.il",
+	"Category" : "Bussiness",
+	"Video" : "/video/movie.mp4",
+	"Image" : "/images/business.jpg",
+	"Text" : "This is a test post",
+	"Release" : "2016-01-02T22:13:34.188Z",
+	"Comments" : [],
+	"lastModified" : ISODate("2016-01-04T18:34:15.276Z")
+}
+{
+	"_id" : ObjectId("56884cc4c12e641046b2d7f8"),
+	"Title" : "test new form",
+	"Author" : "refael",
+	"WebSite" : "http://ynetnews.com",
+	"Category" : "Cars",
+	"Image" : "/images/business.jpg",
+	"Video" : "/video/movie.mp4",
+	"Text" : "Teststtstststs",
+	"Release" : "2016-01-02T22:18:44.352Z",
+	"Comments" : []
+} 
+{
+	"_id" : ObjectId("56884be6a097d8a00964c9e7"),
+	"Title" : "Itzik",
+	"Author" : "Itzik",
+	"WebSite" : "http://ynetnews.com",
+	"Category" : "Dev",
+	"Video" : "",
+	"Image" : "/images/flower.png",
+	"Text" : "Test\nTest\nTest\nTest",
+	"Release" : "2016-01-02T22:15:02.276Z",
+	"Comments" : [ObjectId("568acbaa80cb784041966412"), ObjectId("568acc3380cb784041966414")],
+	"lastModified" : ISODate("2016-01-04T19:46:59.359Z")
+} 
+{
+	"_id" : ObjectId("568ad2cf122be568224ca9f7"),
+	"Title" : "test new form",
+	"Author" : "er",
+	"WebSite" : "http://ynetnews.com",
+	"Category" : "Cars",
+	"Image" : "/images/business.jpg",
+	"Text" : "dfafsa",
+	"Release" : "2016-01-04T20:15:11.751Z",
+	"Comments" : []
+} 
+{
+	"_id" : ObjectId("568afa23d5de489c05064aa6"),
+	"Title" : "test new category",
+	"Author" : "Yakir",
+	"WebSite" : "http://ynet.co.il",
+	"Image" : "/images/Horse.jpg",
+	"Category" : "Nutrition",
+	"Text" : "test",
+	"Release" : "2016-01-04T23:02:59.786Z",
+	"Comments" : [ObjectId("568afaeed5de489c05064aa7")],
+	"lastModified" : ISODate("2016-01-04T23:06:22.266Z")
+}

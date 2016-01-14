@@ -1,0 +1,32 @@
+{
+	"_id" : ObjectId("56818c41d8807fb7eedfda80"),
+	"Username" : "Dhay",
+	"Password" : 123456,
+	"Firstname" : "Dhay",
+	"Lastname" : "yehuda",
+	"Gender" : "male",
+	"Birthdate" : ISODate("1971-09-29T00:00:00Z"),
+	"Seniority" : 2,
+	"Role" : "admin"
+}
+{
+	"_id" : ObjectId("568c2234a0c99e398ab20b6d"),
+	"Username" : "refael",
+	"Password" : 123456,
+	"Firstname" : "refael",
+	"Lastname" : "yehuda",
+	"Gender" : "male",
+	"Birthdate" : ISODate("1991-09-29T00:00:00Z"),
+	"Seniority" : 1,
+	"Role" : "admin"
+}
+{
+	"_id" : ObjectId("568c2290a0c99e398ab20b6e"),
+	"Username" : "yakir",
+	"Password" : 123456,
+	"Firstname" : "yakir",
+	"Lastname" : "twito",
+	"Gender" : "male",
+	"Birthdate" : ISODate("1989-04-03T00:00:00Z"),
+	"Seniority" : 3
+}
