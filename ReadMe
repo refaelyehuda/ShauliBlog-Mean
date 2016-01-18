@@ -1,8 +1,9 @@
 This project is write in Mean stack technology (MongoDB,express,angular,nodejs)
 
-To activate this project please do the following Or install MongoDB and run the batch file :
+To activate this project please do the following Or install MongoDB create the path C:\\data\db and run the RunMe script :
 
 install MongoDB
+create the path C:\\data\db
 Create DB with name Shauli
 Create collections :
 1. Posts
